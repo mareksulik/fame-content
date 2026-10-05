@@ -160,5 +160,5 @@ Zmena systému (nový prvok, pravidlo) znamená v jednom kroku upraviť CSS, ten
 1. Vytvor `posts/RRRR-MM-kanal-tema/` a skopíruj doň šablónu zo `system/templates/` (alebo najbližší existujúci post).
 2. Uprav obsah v `.html`. Triedy a štruktúru nemeň. Nový prvok najprv pridaj do `system/components.css` a sem.
 3. `npm run render -- posts/<priecinok>` vytvorí v `out/` PDF a PNG pre každú stranu.
-4. Skontroluj PNG zmenšené na 360 px: čitateľnosť, zalomenia, poradie farieb dlaždíc, nič cez ľudí na fotke.
+4. Skontroluj **výsledné PDF strana po strane** (to dostane používateľ), nie iba PNG: čitateľnosť pri 360 px, zalomenia, poradie farieb dlaždíc, nič cez ľudí na fotke, screenshoty a samolepky na mieste. PDF sa skladá z PNG (`scripts/render.mjs`), nie z tlačového režimu Chrome, ktorý láme prvky presahujúce stranu.
 5. Text príspevku ulož do `caption.md` vedľa HTML.
