@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAME dizajnový systém</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* Iba layout katalógu; prvky nižšie používajú triedy systému */
+    html { background: var(--paper); }
+    body { display: block; padding: 64px 40px 120px; background: var(--paper); max-width: 1240px; margin: 0 auto; font: 20px/1.5 var(--serif); }
+    .cat-h1 { font: 800 48px/1.1 var(--sans); letter-spacing: -0.03em; }
+    .cat-intro { max-width: 760px; margin-top: 12px; }
+    .cat-sec { margin-top: 80px; padding-top: 24px; border-top: 3px solid var(--ink); }
+    .cat-h2 { font: 700 30px/1.2 var(--sans); letter-spacing: -0.02em; margin-bottom: 8px; }
+    .cat-note { color: var(--muted); margin-bottom: 24px; max-width: 780px; }
+    .cat-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+    .swatch { width: 172px; font: 16px/1.4 var(--sans); }
+    .swatch i { display: block; height: 88px; border: 1px solid var(--line); }
+    .swatch b { display: block; margin-top: 8px; }
+    .swatch span { display: block; color: var(--muted); }
+    .type-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; padding: 20px 0; border-top: 1px solid var(--line); }
+    .type-row > span:first-child { font: 600 15px/1.4 var(--sans); color: var(--muted); }
+    .type-row .f-body { margin: 0; }
+    .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding: 12px 8px; }
+    .tiles .f-tile { padding: 32px; }
+    .shots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .shots img { width: 100%; border: 1px solid var(--line); }
+    .layouts { display: grid; gap: 48px; }
+    .layouts h3 { font: 700 22px/1.3 var(--sans); margin-bottom: 4px; }
+    .layouts p { color: var(--muted); margin-bottom: 16px; }
+    .media img { height: 220px; width: auto; border: 1px solid var(--line); }
+    code { font-family: ui-monospace, Menlo, monospace; font-size: 15px; }
+  </style>
+</head>
+<body>
+
+  <img src="brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE" style="height:120px;margin:-16px 0 24px -12px">
+  <h1 class="cat-h1">FAME, dizajnový systém v1</h1>
+  <p class="cat-intro">Obsah na LinkedIn a Instagram v jazyku webu fameworks.sk. Plátno 1080 px, hranaté naklonené dlaždice ako na logu, Bricolage Grotesque na nadpisy, Newsreader na prózu. Pravidlá sú v <code>DESIGN.md</code>, hodnoty v <code>tokens.css</code>.</p>
+
+  <section class="cat-sec">
+    <h2 class="cat-h2">Farby</h2>
+    <p class="cat-note">Oficiálna paleta, zhodná s logom aj webom. Dlaždice iba červená, tyrkysová a žltá. Béžová a taupe iba ako pozadie bloku alebo panela, tan sa nepoužíva. Text na farbe je vždy tmavý.</p>
+    <div class="cat-row">
+      <div class="swatch"><i style="background:var(--red)"></i><b>--red</b><span>#EE3433 · dlaždica, akcia</span></div>
+      <div class="swatch"><i style="background:var(--teal)"></i><b>--teal</b><span>#00A69C · dlaždica</span></div>
+      <div class="swatch"><i style="background:var(--yellow)"></i><b>--yellow</b><span>#FAE27B · dlaždica</span></div>
+      <div class="swatch"><i style="background:var(--beige)"></i><b>--beige</b><span>#EAE0CE · blok, panel</span></div>
+      <div class="swatch"><i style="background:var(--taupe)"></i><b>--taupe</b><span>#BFB2AC · krátky panel</span></div>
+      <div class="swatch"><i style="background:var(--ink)"></i><b>--ink</b><span>#242021 · text, linky</span></div>
+      <div class="swatch"><i style="background:var(--paper)"></i><b>--paper</b><span>#ffffff · plátno</span></div>
+      <div class="swatch"><i style="background:var(--muted)"></i><b>--muted</b><span>#645f60 · sekundárny text</span></div>
+    </div>
+  </section>
+
+  <section class="cat-sec">
+    <h2 class="cat-h2">Typografia</h2>
+    <p class="cat-note">Skutočná veľkosť pre plátno 1080 px; na telefóne sa zobrazí približne na tretinu. Nič menšie ako 24 px.</p>
+    <div class="type-row"><span>Display 112 · 800</span><span class="f-display">Našich 10&nbsp;princípov</span></div>
+    <div class="type-row"><span>Title 80 · 800</span><span class="f-title">Dobrý marketing si zaslúži FAME</span></div>
+    <div class="type-row"><span>Subtitle 64 · 700</span><span class="f-subtitle">Rozlišujeme silu dôkazov</span></div>
+    <div class="type-row"><span>Body 36 · Newsreader</span><p class="f-body">Nie všetky dáta a&nbsp;tvrdenia majú rovnakú váhu.</p></div>
+    <div class="type-row"><span>Meta 26 · 600</span><span style="font:600 var(--fs-meta)/1.3 var(--sans)">fameworks.sk/manifest</span></div>
+  </section>
+
+  <section class="cat-sec">
+    <h2 class="cat-h2">Dlaždice</h2>
+    <p class="cat-note">Naklonené obdĺžniky z loga, bez zaoblenia a tieňa. Náklon 2° striedavo proti a v smere hodinových ručičiek, farby v cykle žltá, tyrkysová, červená; susedné dlaždice nikdy rovnakou farbou.</p>
+    <div class="tiles">
+      <div class="f-tile f-tile--yellow"><span class="f-tile__number">01</span><span class="f-subtitle" style="font-size:40px">Rozlišujeme silu dôkazov</span></div>
+      <div class="f-tile f-tile--teal f-tile--cw"><span class="f-tile__number">02</span><span class="f-subtitle" style="font-size:40px">Rozlišujeme silu dôkazov</span></div>
+      <div class="f-tile f-tile--red"><span class="f-tile__number">03</span><span class="f-subtitle" style="font-size:40px">Rozlišujeme silu dôkazov</span></div>
+    </div>
+  </section>
+
+  <section class="cat-sec">
+    <h2 class="cat-h2">Komponenty</h2>
+    <p class="cat-note">URL kapsula je hranaté tlačidlo z webu: červená pre hlavnú akciu (jedna na stranu), inak obrysová. Panel faktov a päta s ink linkou.</p>
+    <div class="cat-row" style="flex-direction:column;gap:32px;max-width:936px">
+      <div class="f-actions"><span class="f-url f-url--primary">fameworks.sk/clenstvo</span><span class="f-url">fameworks.sk/manifest</span></div>
+      <dl class="f-panel" style="width:100%"><div><dt>Termín</dt><dd>TBA</dd></div><div><dt>Lístky</dt><dd>inviton.eu</dd></div></dl>
+      <footer class="f-footer" style="width:100%"><span>Manifest FAME</span><span>fameworks.sk/manifest</span></footer>
+    </div>
+  </section>
+
+  <section class="cat-sec">
+    <h2 class="cat-h2">Logo a obrazy</h2>
+    <p class="cat-note">Logo v pôvodnej podobe, iba na bielom plátne (PNG má nepriehľadné biele pozadie). Sticker art na titulku, vybieha za pravý okraj. Fotka zo stretnutia bez textu cez ľudí. Žiadne generované obrázky.</p>
+    <div class="cat-row media">
+      <img src="brand/logo.png" alt="Logo FAME">
+      <img src="brand/logo-rosette.png" alt="Logo FAME, rozeta samolepiek">
+      <img src="media/stickers-bleed.png" alt="Sticker art">
+      <img src="media/photo-clenovia.jpg" alt="Členovia FAME na stretnutí">
+    </div>
+  </section>
+
+  <section class="cat-sec">
+    <h2 class="cat-h2">Rozloženia</h2>
+    <p class="cat-note">Šablóny sú v <code>templates/</code>, náhľady obnovíš príkazom <code>npm run render:system</code>.</p>
+    <div class="layouts">
+      <div>
+        <h3>A: dlaždice (carousel 1080 × 1080)</h3>
+        <p>Titulka so sticker art, obsahové strany s dlaždicou a citáciou zo zdroja, záver s béžovým blokom a URL kapsulami.</p>
+        <div class="shots">
+          <img src="templates/out/nahlad-a-dlazdice-1.png" alt="Šablóna A, titulka">
+          <img src="templates/out/nahlad-a-dlazdice-2.png" alt="Šablóna A, princíp 1">
+          <img src="templates/out/nahlad-a-dlazdice-3.png" alt="Šablóna A, princíp 2">
+          <img src="templates/out/nahlad-a-dlazdice-4.png" alt="Šablóna A, princíp 3">
+          <img src="templates/out/nahlad-a-dlazdice-5.png" alt="Šablóna A, záver">
+        </div>
+      </div>
+      <div>
+        <h3>B: podujatie (4:5, 1080 × 1350)</h3>
+        <p>Termín v naklonenej dlaždici ako hlavný vizuál, názov, text, panel faktov a červená URL.</p>
+        <div class="shots"><img src="templates/out/nahlad-b-podujatie-1.png" alt="Šablóna B, podujatie"></div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

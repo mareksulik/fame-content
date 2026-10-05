@@ -1,0 +1,209 @@
+/* FAME – komponenty. Používať iba tokeny z tokens.css. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { background: #cfcac4; }
+
+body {
+  font-family: var(--serif);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  display: grid;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+/* Pri renderovaní (scripts/render.mjs) zmizne náhľadové pozadie aj medzery */
+body.is-render { background: none; padding: 0; gap: 0; }
+
+/* ---------- Plátno ---------- */
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1080px;
+  padding: var(--pad);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--paper);
+  break-after: page;
+}
+
+.slide--portrait { height: 1350px; }   /* LinkedIn / Instagram 4:5 */
+.slide--story { height: 1920px; }      /* Stories 9:16 */
+
+/* Plátno je vždy biele: logo.png má nepriehľadné biele pozadie a nesmie sa upravovať.
+   Béžová prichádza iba ako blok (.f-block) alebo panel (.f-panel) na bielom plátne. */
+
+/* ---------- Hlavička: logo + počítadlo ---------- */
+
+.f-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--gap-m);
+}
+
+/* Originálne logo.png má priehľadný okraj ~4 % vľavo; posun zarovná kresbu s okrajom plátna. Súbor sa nemení. */
+.f-logo { height: var(--logo-h); width: auto; display: block; margin: -24px 0 -16px -16px; }
+
+.f-counter {
+  font: 600 var(--fs-meta) / var(--lh-meta) var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Text ---------- */
+
+.f-label {
+  font: 600 var(--fs-meta) / var(--lh-meta) var(--sans);
+  margin-bottom: var(--gap-s);
+}
+
+.f-display, .f-title, .f-subtitle { font-family: var(--sans); text-wrap: balance; }
+.f-display { font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); font-weight: 800; }
+.f-title { font-size: var(--fs-title); line-height: var(--lh-title); letter-spacing: var(--ls-title); font-weight: 800; }
+.f-subtitle { font-size: var(--fs-subtitle); line-height: var(--lh-subtitle); letter-spacing: var(--ls-subtitle); font-weight: 700; }
+
+.f-body {
+  font: var(--fs-body) / var(--lh-body) var(--serif);
+  text-wrap: pretty;
+  margin-top: var(--gap-s);
+}
+
+/* ---------- Dlaždica: naklonený obdĺžnik ako na logu ----------
+   Farby iba red, teal, yellow. Susedné dlaždice nikdy rovnakou farbou:
+   v carouseli cyklus yellow → teal → red. Text na farbe je vždy tmavý. */
+
+.f-tile {
+  position: relative;
+  padding: 48px 52px;
+  background: var(--tone);
+  color: var(--on-tone, var(--ink));
+  transform: rotate(calc(-1 * var(--tilt)));
+}
+
+.f-tile--cw { transform: rotate(var(--tilt)); }
+
+.f-tile--yellow { --tone: var(--yellow); }
+.f-tile--teal { --tone: var(--teal); }
+.f-tile--red { --tone: var(--red); --on-tone: var(--on-red); }
+
+.f-tile__number {
+  display: block;
+  font: 800 var(--fs-number) / 1 var(--sans);
+  letter-spacing: -0.04em;
+  margin-bottom: var(--gap-s);
+}
+
+/* ---------- Sticker art: vybieha za pravý okraj plátna ---------- */
+
+.f-art {
+  position: absolute;
+  top: 150px;
+  right: 0;
+  width: 600px;
+  height: auto;
+  pointer-events: none;
+}
+
+/* ---------- Panel faktov (béžový, alebo papierový na béžovom plátne) ---------- */
+
+.f-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-s) var(--gap-l);
+  padding: 32px 36px;
+  background: var(--beige);
+}
+
+/* ---------- Béžový blok: záverečná výzva, dlhší text ---------- */
+
+.f-block {
+  display: flex;
+  flex-direction: column;
+  padding: 56px;
+  background: var(--beige);
+}
+
+.f-block .f-actions { margin-top: var(--gap-m); }
+
+.f-panel dt {
+  font: 600 var(--fs-small) / 1.3 var(--sans);
+  margin-bottom: 4px;
+}
+
+.f-panel dd { font: var(--fs-body) / 1.3 var(--serif); }
+
+/* ---------- Päta: ink linka + URL ---------- */
+
+.f-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-s);
+  padding-top: var(--gap-s);
+  border-top: var(--rule) solid var(--ink);
+  font: 600 var(--fs-meta) / var(--lh-meta) var(--sans);
+}
+
+/* ---------- URL kapsula: hranaté tlačidlo z webu ----------
+   Predvolená obrysová, --primary červená (hlavná akcia, jedna na stranu). */
+
+.f-url {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 28px;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: 600 var(--fs-meta) / 1.25 var(--sans);
+  white-space: nowrap;
+}
+
+.f-url--primary { background: var(--red); border-color: var(--red); color: var(--on-red); }
+
+.f-actions { display: flex; flex-wrap: wrap; gap: var(--gap-s); }
+
+/* ---------- Fotka zo stretnutia ---------- */
+
+.f-photo {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+/* ---------- Rozloženie A: dlaždice (carousel 1080 × 1080) ----------
+   Titulka: .slide.slide--cover > .f-header + .f-art + .f-display + .f-body + .f-footer
+   Obsah:   .slide.slide--tile  > .f-header + .f-tile + .f-body + .f-footer
+   Záver:   .slide.slide--end   > .f-header + .f-block (.f-title + .f-body + .f-actions) */
+
+.slide--cover .f-display { margin-top: auto; position: relative; }
+.slide--cover .f-body { max-width: 860px; }
+.slide--cover .f-footer { margin-top: var(--gap-m); }
+
+/* Dlaždica a text sú zvislo v strede medzi hlavičkou a pätou */
+.slide--tile .f-tile { margin: auto 12px 0; }
+.slide--tile .f-body { margin-top: var(--gap-m); }
+
+.slide--end .f-block { margin-top: auto; }
+
+/* ---------- Rozloženie B: podujatie (4:5, 1080 × 1350) ----------
+   .slide.slide--portrait.slide--event > .f-header + .f-tile (termín) + .f-label + .f-title + .f-body + .f-panel + .f-footer */
+
+.slide--event .f-tile--date {
+  align-self: flex-start;
+  margin: 16px 0 var(--gap-l) 8px;
+  padding: 28px 56px 32px;
+  font: 800 144px / 1 var(--sans);
+  letter-spacing: -0.04em;
+}
+
+.slide--event .f-panel { margin-top: var(--gap-m); }
