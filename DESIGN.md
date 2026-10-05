@@ -65,6 +65,8 @@ Slovenská typografia: za jednopísmenovými predložkami a spojkami (a, i, k, o
 | Nadpis | `.f-display`, `.f-title`, `.f-subtitle` | pomenovanie, nie slogan |
 | Próza | `.f-body` | Newsreader, citácia alebo skrátenie zdroja |
 | Dlaždica | `.f-tile.f-tile--yellow|teal|red` (+ `.f-tile--cw`) | naklonená o 2°, striedavo `-` a `+`; voliteľne `.f-tile__number` |
+| Dlaždica s popisom | `.f-tile__head` (`.f-tile__number` + `.f-tile__title` 52 px) + `.f-tile__text` (serif 32 px) | dve na strane `.slide--pair`, delia si celú výšku; texty z webu doslovne |
+| Screenshot ako samolepka | `.f-shot` > `.f-shot__crop` (+ `--iw --cx --cy --cw --ch`) | skutočný screenshot, nemenený súbor, orezaný v CSS na výrez okna; rám red/teal/yellow (`--tone`), náklon `--shot-tilt`, vybieha za okraj; poloha v `<style>` postu |
 | Sticker art | `.f-art` | iba titulka, vybieha za pravý okraj; text ho neprekrýva |
 | Blok | `.f-block` | béžový blok na bielom plátne (záver, výzva) |
 | Panel | `.f-panel` (`dl`) | fakty: termín, miesto, lístky |
@@ -82,6 +84,8 @@ Bez zaoblení, bez tieňov, bez ikon. Hranatý tvar je identita, nie nedbalosť.
 | `brand/logo-rosette.png` | rozeta samolepiek s textom, 1968 × 1438 | samostatný vizuál, profil; nie ako hlavička |
 | `media/stickers-bleed.png` | dve samolepky FAME, odrezané vpravo | titulka carouselu, vybieha za pravý okraj |
 | `media/photo-clenovia.jpg` | selfie členov zo stretnutia | komunita, stretnutia; text cez ľudí nie |
+| `media/ebbie-answer-2026-09-21.png` | okno ebbie.sk, zdieľaná odpoveď „Oplatí sa v reklame humor?“ (1077 × 1153, okno x56 y38 w965 h1041) | ukážka odpovede Ebbie |
+| `media/ebbie-window-2026-09-21.png` | okno ebbie.sk, úvodná obrazovka (rovnaké rozmery) | iba výrez od y 600 (otázka, sformulovanie); úvodný text s počtom prác nezobrazovať |
 
 - Logo sa nikdy nekreslí nanovo, neprefarbuje ani neorezáva. `logo.png` má **nepriehľadné biele pozadie**, preto plátno je vždy biele a béžová prichádza iba ako blok alebo panel.
 - Žiadne generované obrázky, vymyslené billboardy ani portréty. Zamietnutý koncept `exec-11dfbee1-…png` sa nepoužíva ani ako referencia. `FAME_preview_3.pdf` je iba zdroj štýlu, nie kompozície.
@@ -110,6 +114,8 @@ Próza, 1–2 riadky                     └────────────
 Séria              fameworks.sk/url   ──────────────────────────────
                                       Séria              fameworks.sk/url
 ```
+
+**A2: dvojica dlaždíc** (`.slide--pair`, príklad `posts/2026-10-linkedin-ebbie/`). Titulka s dlaždicou a screenshotom ako samolepkou, strany s dvoma dlaždicami s popisom (cyklus farieb pokračuje cez strany), záver s béžovým blokom. Na predstavenie produktu alebo služby s viacerými vlastnosťami.
 
 **B: podujatie** (`b-podujatie.html`, 1080 × 1350). Termín v naklonenej dlaždici, štítok, názov, text, panel faktov, päta s červenou URL.
 

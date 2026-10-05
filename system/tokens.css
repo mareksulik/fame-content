@@ -72,6 +72,8 @@
   --fs-title: 80px;    --lh-title: 1.02;   --ls-title: -0.025em;    /* nadpis strany */
   --fs-subtitle: 64px; --lh-subtitle: 1.06; --ls-subtitle: -0.02em; /* nadpis v dlaždici */
   --fs-number: 64px;                                               /* číslo princípu */
+  --fs-tile-title: 52px; /* nadpis v dlaždici s popisom (dve dlaždice na strane) */
+  --fs-tile-text: 32px;  /* popis v dlaždici, serif */
   --fs-body: 36px;     --lh-body: 1.4;                              /* serif próza */
   --fs-meta: 26px;     --lh-meta: 1.3;                              /* štítok, URL, počítadlo */
   --fs-small: 24px;                                                 /* najmenší text */
