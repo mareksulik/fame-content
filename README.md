@@ -2,6 +2,8 @@
 
 Dizajnový systém a zdroje pre obsah FAME na sociálnych sieťach (LinkedIn, Instagram), odvodený z webu fameworks.sk (`fame-web`). Každý post je HTML stránka so stranami `.slide`, z ktorej skript vyrenderuje PDF (LinkedIn carousel) a PNG.
 
+- Design System v Claude: https://claude.ai/artifact/9TpxHpkshrQVVvhePFKfR4 (tokeny webu aj sociálnych sietí, brand book, komponenty)
+- Skill: `~/.claude/skills/fame-social`
 - Pravidlá: [DESIGN.md](DESIGN.md)
 - Katalóg: [system/index.html](system/index.html)
 - Šablóny: `system/templates/a-dlazdice.html` (carousel s dlaždicami), `system/templates/b-podujatie.html` (podujatie 4:5)

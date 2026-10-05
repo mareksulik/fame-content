@@ -1,6 +1,6 @@
 # FAME: dizajnový systém v1 (sociálne siete)
 
-Verzia 1.0, 5. 10. 2026. Živý katalóg: `system/index.html`.
+Verzia 1.0, 5. 10. 2026. Živý katalóg: `system/index.html`. Design System v Claude: https://claude.ai/artifact/9TpxHpkshrQVVvhePFKfR4.
 
 Pravidlá pre obsah na sociálne siete (LinkedIn, Instagram). Systém vychádza z webu `fame-web` (`web/src/app/(frontend)/styles.css`, záväzné pravidlá v `AGENTS.md`, živý web fameworks.sk k 5. 10. 2026). Konkrétne hodnoty sú v `system/tokens.css`, komponenty v `system/components.css`. Toto je dokument s pravidlami.
 
@@ -135,7 +135,7 @@ Podujatia FAME     [fameworks.sk/eventy]
 | `system/fonts`, `brand`, `media` | Bricolage Grotesque, Newsreader (OFL), logá, sticker art, fotka |
 | `scripts/render.mjs` | HTML → PDF + PNG cez lokálny Chrome |
 
-Zmena systému (nový prvok, pravidlo) znamená v jednom kroku upraviť CSS, tento dokument a katalóg, potom spustiť `npm run render:system` a skontrolovať náhľady. Ak sa zmení web (paleta, fonty, pravidlá v `fame-web/AGENTS.md`), web má prednosť a systém sa zosynchronizuje.
+Zmena systému (nový prvok, pravidlo) znamená v jednom kroku upraviť CSS, tento dokument, katalóg a Design System artefakt, potom spustiť `npm run render:system` a skontrolovať náhľady. Ak sa zmení web (paleta, fonty, pravidlá v `fame-web/AGENTS.md`), web má prednosť a systém sa zosynchronizuje.
 
 ## Postup pre nový post
 
