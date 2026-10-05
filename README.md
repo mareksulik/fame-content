@@ -35,6 +35,25 @@ blender -b -P posts/2026-10-blender-evidence-based/scene.py -- render
 ffmpeg -framerate 30 -i posts/2026-10-blender-evidence-based/out/frames/f%04d.png -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart posts/2026-10-blender-evidence-based/out/fame-blender-evidence-based.mp4
 ```
 
+Video v Remotion (React; Free License pre neziskové organizácie; používa `system/tokens.css` a `components.css`):
+
+```bash
+cd remotion && npm install && npx remotion render src/index.ts EvidenceBased ../posts/2026-10-remotion-evidence-based/out/fame-remotion-evidence-based.mp4 --public-dir ../system --codec h264 --crf 18
+```
+
+Remotion kóduje s plným farebným rozsahom (`yuvj420p`); pre sociálne siete prekóduj na štandardný rozsah:
+
+```bash
+ffmpeg -i in.mp4 -vf "scale=in_range=pc:out_range=tv,format=yuv420p" -color_range tv -c:v libx264 -crf 18 -movflags +faststart out.mp4
+```
+
+Animovaný graf v Manime (MIT; potrebuje `brew install cairo pango pkgconf` a ffmpeg):
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install manim
+.venv/bin/manim -qh --format mp4 -r 1080,1350 --fps 30 posts/2026-10-manim-humor-v-reklame/scene.py HumorVReklame
+```
+
 Náhľady šablón pre katalóg:
 
 ```bash
@@ -46,6 +65,8 @@ npm run render:system
 | Priečinok | Kanál | Obsah |
 | --- | --- | --- |
 | `posts/2026-10-linkedin-ebbie` | LinkedIn PDF carousel 1080 × 1080, rozloženie A2, 5 strán | Predstavenie Ebbie |
+| `posts/2026-10-manim-humor-v-reklame` | Video 4:5, 8 s, Manim, animovaný graf z odpovede Ebbie | Oplatí sa v reklame humor? |
+| `posts/2026-10-remotion-evidence-based` | Video 4:5, 8,5 s, Remotion (`remotion/`) | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-blender-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, Blender (3D samolepky, ploché svetlo), bez zvuku | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-video-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, MP4 bez zvuku | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-linkedin-principy` | LinkedIn PDF carousel 1080 × 1080, rozloženie A, 12 strán | Našich 10 princípov z manifestu |

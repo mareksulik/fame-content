@@ -1,0 +1,16 @@
+{
+  "name": "fame-remotion",
+  "private": true,
+  "type": "module",
+  "description": "FAME videá v Remotion (licencia: Free License pre neziskové organizácie).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts --public-dir ../system",
+    "render": "remotion render src/index.ts --public-dir ../system"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.533",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remotion": "^4.0.533"
+  }
+}

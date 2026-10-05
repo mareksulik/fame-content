@@ -141,6 +141,10 @@ Krátke video je jeden `.slide` (najčastejšie `.slide--portrait`) so scénami 
 - Bez zvuku, kým nie je dodaná skutočná hudba alebo hlas; text musí fungovať bez zvuku.
 - Rovnaké pravidlá ako pri statických postoch: farby dlaždíc, tmavý text na farbe, biele plátno pod logom, nič pod 24 px.
 
+**Remotion** (`remotion/`, Free License pre neziskové organizácie): React kompozícia importuje priamo `system/tokens.css` a `components.css`, obrázky cez `staticFile` z `system/` (`--public-dir ../system`). Pohyb sa počíta z čísla snímky (`spring`, `interpolate`); prvky scény ostávajú zobrazené, kým nedokončia odchod. Fonty sa načítavajú lenivo, render čaká cez `delayRender` na `document.fonts.ready`. Výstup prekóduj na štandardný farebný rozsah (README). Najlepšia voľba pre série videí z dát a pre všetko, čo má vyzerať ako HTML posty.
+
+**Manim** (`posts/2026-10-manim-humor-v-reklame/scene.py`, MIT): animované grafy a vysvetlenia dôkazov. Mierka 1 jednotka = 100 px (frame 10,8 × 13,5). Písmo cez `register_font` so `system/fonts/BricolageGrotesque-ExtraBold.ttf` (meno „Bricolage Grotesque 96pt ExtraBold“). Pravidlá pre grafy: iba pomery a čísla zo zdroja s uvedeným zdrojom, stĺpce na spoločnej základni a bez náklonu, popis rozdielu („približne 2× silnejší“) stojí pri prvku, ktorého sa týka.
+
 **Blender** (`posts/2026-10-blender-evidence-based/scene.py`): rovnaké rozloženie v 3D. Samolepky sú tenké kvádre, ktoré sa preklopia do záberu ako karty; kamera sa približuje a švihom prejde na druhú časť „stola“; riadky textu sa vynárajú cez tyrkysový pás. Ploché svetlo: všetky materiály sú emisné a view transform je Standard, takže farby sú presne hex z palety a nevznikajú tiene. Písmo `system/fonts/BricolageGrotesque-ExtraBold.ttf` je statická inštancia váhy 800 zlúčená z rovnakých OFL woff2 súborov ako web (latin + latin-ext), lebo Blender woff2 nenačíta. Každý prvok sa zobrazí až od svojej prvej animovanej snímky (`visible_from`), inak by visel v začiatočnej polohe. Kontrola: `-- stills` vyrenderuje kontrolné snímky; výsledné MP4 over snímkami cez `ffmpeg -ss`.
 
 ## Súbory systému

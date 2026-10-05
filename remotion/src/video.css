@@ -1,0 +1,25 @@
+/* Iba poloha prvkov tohto videa; farby, písma a .slide sú z dizajnového systému. Rozloženie = posts/2026-10-video-evidence-based. */
+
+/* components.css nastavuje body pre náhľad v prehliadači; v Remotion je plátnom kompozícia. */
+body { display: block; padding: 0; gap: 0; background: none; }
+
+.slide.slide--portrait { width: 1080px; height: 1350px; padding: 0; }
+
+.sticker {
+  position: absolute; left: -100px; width: 1280px;
+  padding: 64px 140px 72px 172px;
+  background: var(--tone); color: var(--on-tone, var(--ink));
+  font: 800 128px/0.95 var(--sans); letter-spacing: -.04em;
+}
+.s1 { --tone: var(--yellow); top: 96px; }
+.s2 { --tone: var(--teal); top: 400px; }
+.s3 { --tone: var(--red); --on-tone: var(--on-red); top: 700px; height: 900px; padding-block: 80px 0; font-size: 112px; line-height: 1; }
+
+.band { position: absolute; left: -120px; right: -120px; top: 660px; height: 900px; background: var(--teal); }
+.art { position: absolute; top: -50px; left: 160px; width: 1000px; z-index: 2; }
+.art img { display: block; width: 100%; }
+
+.copy { position: absolute; left: var(--pad); right: var(--pad); top: 760px; z-index: 3; }
+.copy p { margin: 0 0 8px; font: 800 72px/1.06 var(--sans); letter-spacing: -.025em; color: var(--ink); }
+.copy .hl { display: inline-block; padding: 2px 16px 10px; background: var(--yellow); }
+.copy .url { margin-top: 40px; padding: 22px 40px; font-size: 44px; border-color: var(--red); display: inline-flex; }
