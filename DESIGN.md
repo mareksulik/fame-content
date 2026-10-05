@@ -65,7 +65,7 @@ Slovenská typografia: za jednopísmenovými predložkami a spojkami (a, i, k, o
 | Nadpis | `.f-display`, `.f-title`, `.f-subtitle` | pomenovanie, nie slogan |
 | Próza | `.f-body` | Newsreader, citácia alebo skrátenie zdroja |
 | Dlaždica | `.f-tile.f-tile--yellow|teal|red` (+ `.f-tile--cw`) | naklonená o 2°, striedavo `-` a `+`; voliteľne `.f-tile__number` |
-| Dlaždica s popisom | `.f-tile__head` (`.f-tile__number` + `.f-tile__title` 52 px) + `.f-tile__text` (serif 32 px) | dve na strane `.slide--pair`, delia si celú výšku; texty z webu doslovne |
+| Dlaždica s popisom | `.f-tile__head` (`.f-tile__number` + `.f-tile__title` 52 px) + `.f-tile__text` (serif 32 px) | dve až tri na strane `.slide--stack`, delia si celú výšku; pri troch iba nadpis; texty z webu doslovne |
 | Screenshot ako samolepka | `.f-shot` > `.f-shot__crop` (+ `--iw --cx --cy --cw --ch`) | skutočný screenshot, nemenený súbor, orezaný v CSS na výrez okna; rám red/teal/yellow (`--tone`), náklon `--shot-tilt`, vybieha za okraj; poloha v `<style>` postu |
 | Sticker art | `.f-art` | iba titulka, vybieha za pravý okraj; text ho neprekrýva |
 | Blok | `.f-block` | béžový blok na bielom plátne (záver, výzva) |
@@ -96,7 +96,7 @@ Bez zaoblení, bez tieňov, bez ikon. Hranatý tvar je identita, nie nedbalosť.
 - Iba zo zdrojov: manifest (`fame-web/web/src/content/manifest.json`), web fameworks.sk, Payload. Nevymýšľať fakty, čísla, rečníkov, miesta ani ceny. Neznámy termín je `TBA`.
 - Tón: odborný, priamy, bez superlatívov. Vykanie v množnom čísle („Spýtajte sa Ebbie skôr, než sa rozhodnete.“). Nadpisy pomenúvajú.
 - „Speakeri deklarujú konflikt záujmov.“ sa nepoužíva.
-- Ebbie: počet zdrojov neuvádzať (overených je 748 prác, nie 1 000+), plánované funkcie nepredstavovať ako hotové.
+- Ebbie: počet zdrojov neuvádzať (overených je 748 prác, nie 1 000+), plánované funkcie nepredstavovať ako hotové. Limity pre nečlenov číslami neuvádzať; píš „Vyskúšať si ju môže každý. Členovia FAME majú neobmedzený prístup.“
 
 ## Rozloženia
 
@@ -115,7 +115,7 @@ Séria              fameworks.sk/url   ─────────────�
                                       Séria              fameworks.sk/url
 ```
 
-**A2: dvojica dlaždíc** (`.slide--pair`, príklad `posts/2026-10-linkedin-ebbie/`). Titulka s dlaždicou a screenshotom ako samolepkou, strany s dvoma dlaždicami s popisom (cyklus farieb pokračuje cez strany), záver s béžovým blokom. Na predstavenie produktu alebo služby s viacerými vlastnosťami.
+**A2: predstavenie produktu** (`.slide--stack`, príklad `posts/2026-10-linkedin-ebbie/`). Titulka iba s predstavením (dlaždica s názvom, próza, URL), strany s ukážkou rozhrania (dlaždica s pomenovaním, próza, screenshot ako samolepka), potom stĺpec dvoch až troch dlaždíc s vlastnosťami (pri troch iba nadpisy). Cyklus farieb pokračuje cez strany.
 
 **B: podujatie** (`b-podujatie.html`, 1080 × 1350). Termín v naklonenej dlaždici, štítok, názov, text, panel faktov, päta s červenou URL.
 

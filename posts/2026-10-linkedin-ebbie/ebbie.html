@@ -6,13 +6,17 @@
   <link rel="stylesheet" href="../../system/tokens.css">
   <link rel="stylesheet" href="../../system/components.css">
   <style>
-    /* Iba poloha screenshotov a titulky tohto postu; komponenty sú v components.css. */
-    .cover-tile { align-self: flex-start; margin: 8px 0 0 12px; padding: 40px 56px 48px; }
-    .cover-tile .f-display { font-size: 168px; line-height: .9; letter-spacing: -.045em; }
-    .cover-tile .f-tile__title { margin-top: 20px; max-width: 640px; }
-    .shot-answer { top: 668px; left: 136px; width: 1010px; --shot-tilt: 3deg; }
-    .shot-start { top: 150px; left: 320px; width: 840px; --tone: var(--red); --shot-tilt: -3deg; }
-    .slide--end .f-block { position: relative; z-index: 1; }
+    /* Iba poloha prvkov tohto postu; komponenty sú v components.css. */
+    .name-tile { align-self: flex-start; margin: 8px 0 0 12px; padding: 40px 56px 48px; }
+    .name-tile .f-display { font-size: 168px; line-height: .9; letter-spacing: -.045em; }
+    .name-tile .f-tile__title { margin-top: 20px; max-width: 640px; }
+    .intro .f-body { margin-top: 48px; }
+    .intro .f-url { margin-top: auto; }
+    .label-tile { align-self: flex-start; margin: 0 0 0 12px; padding: 24px 48px 30px; }
+    .ui .f-body { margin-top: 32px; max-width: 900px; }
+    .ui .f-shot { top: 560px; left: 100px; width: 1040px; }
+    .shot-q { --tone: var(--red); --shot-tilt: 2.5deg; }
+    .shot-a { --tone: var(--teal); --shot-tilt: -2.5deg; }
   </style>
 </head>
 <body>
@@ -20,89 +24,71 @@
      Screenshoty: skutočné okná ebbie.sk z 21. 9. 2026 (fame-web/web/content-assets), nemenené, orezané v CSS.
      Úvodná obrazovka je orezaná pod úvodným textom, aby sa neuvádzal počet zdrojov. -->
 
-  <!-- 1 / 5 · Titulka -->
-  <section class="slide" aria-label="Ebbie, tvoj evidence-based marketing asistent">
+  <!-- 1 / 5 · Predstavenie -->
+  <section class="slide intro" aria-label="Ebbie, tvoj evidence-based marketing asistent">
     <header class="f-header">
       <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
       <span class="f-counter">1 / 5</span>
     </header>
-    <div class="f-tile f-tile--yellow cover-tile">
+    <div class="f-tile f-tile--yellow name-tile">
       <h1 class="f-display">Ebbie</h1>
       <p class="f-tile__title">tvoj evidence-based marketing asistent</p>
     </div>
-    <div class="f-shot shot-answer">
-      <div class="f-shot__crop" style="--iw:1077;--cx:56;--cy:300;--cw:965;--ch:330">
+    <p class="f-body">Ebbie je AI asistent FAME. Pomáha preniesť poznatky zo štúdií do reálneho rozhodovania. Namiesto prehľadávania celého internetu využíva kurátorovanú knižnicu vedeckých a&nbsp;odborných zdrojov. Ukáže, o&nbsp;čo sa tvrdenie opiera a&nbsp;kde má limity.</p>
+    <span class="f-url f-url--primary">ebbie.sk</span>
+  </section>
+
+  <!-- 2 / 5 · Rozhranie: otázka -->
+  <section class="slide ui" aria-label="Ukážka rozhrania: otázka">
+    <header class="f-header">
+      <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
+      <span class="f-counter">2 / 5</span>
+    </header>
+    <div class="f-tile f-tile--teal f-tile--cw label-tile"><h2 class="f-subtitle">Otázka</h2></div>
+    <p class="f-body">Napíšte vlastnú otázku, vyberte si z&nbsp;pripravených tém alebo si ju nechajte pomôcť sformulovať podľa situácie, trhu a&nbsp;veľkosti značky.</p>
+    <div class="f-shot shot-q">
+      <div class="f-shot__crop" style="--iw:1077;--cx:56;--cy:600;--cw:965;--ch:478">
+        <img src="../../system/media/ebbie-window-2026-09-21.png" alt="Úvodná obrazovka Ebbie: napíšte otázku alebo si ju nechajte pomôcť sformulovať">
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 / 5 · Rozhranie: odpoveď -->
+  <section class="slide ui" aria-label="Ukážka rozhrania: odpoveď">
+    <header class="f-header">
+      <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
+      <span class="f-counter">3 / 5</span>
+    </header>
+    <div class="f-tile f-tile--yellow label-tile"><h2 class="f-subtitle">Odpoveď</h2></div>
+    <p class="f-body">Odpoveď prepája so štúdiami a&nbsp;bibliografickými údajmi. Môžete sa dopytovať na konkrétne zistenie, jeho limity či význam pre prax.</p>
+    <div class="f-shot shot-a">
+      <div class="f-shot__crop" style="--iw:1077;--cx:56;--cy:300;--cw:965;--ch:478">
         <img src="../../system/media/ebbie-answer-2026-09-21.png" alt="Odpoveď Ebbie na otázku Oplatí sa v reklame humor?">
       </div>
     </div>
   </section>
 
-  <!-- 2 / 5 · Možnosti 1 a 2 -->
-  <section class="slide slide--pair" aria-label="Nájde výskum a posúdi dôkaz">
-    <header class="f-header">
-      <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
-      <span class="f-counter">2 / 5</span>
-    </header>
-    <div class="f-tile f-tile--teal f-tile--cw">
-      <div class="f-tile__head"><span class="f-tile__number">01</span><h2 class="f-tile__title">Nájde relevantný výskum k&nbsp;téme, ktorú riešite</h2></div>
-      <p class="f-tile__text">Napíšte vlastnú otázku, vyberte si z&nbsp;pripravených tém alebo si ju nechajte pomôcť sformulovať podľa situácie, trhu a&nbsp;veľkosti značky.</p>
-    </div>
-    <div class="f-tile f-tile--red">
-      <div class="f-tile__head"><span class="f-tile__number">02</span><h2 class="f-tile__title">Posúdi, aký silný a&nbsp;limitovaný je dostupný dôkaz</h2></div>
-      <p class="f-tile__text">Rozlišuje typ štúdie, nezávislé overenie aj podmienky platnosti. Upozorní na protichodné zistenia a&nbsp;chýbajúcu oporu pre váš trh.</p>
-    </div>
-  </section>
-
-  <!-- 3 / 5 · Možnosti 3 a 4 -->
-  <section class="slide slide--pair" aria-label="Argumentácia a podklady">
-    <header class="f-header">
-      <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
-      <span class="f-counter">3 / 5</span>
-    </header>
-    <div class="f-tile f-tile--yellow f-tile--cw">
-      <div class="f-tile__head"><span class="f-tile__number">03</span><h2 class="f-tile__title">Postaví argumentáciu pre vedenie, klienta či kolegov</h2></div>
-      <p class="f-tile__text">Predložte tézu, ktorú chcete overiť. Ebbie rozlíši podložené jadro od hypotézy a&nbsp;vysvetlí, za akých podmienok tvrdenie platí.</p>
-    </div>
-    <div class="f-tile f-tile--teal">
-      <div class="f-tile__head"><span class="f-tile__number">04</span><h2 class="f-tile__title">Dodá do prezentácie podklady, ktoré obstoja</h2></div>
-      <p class="f-tile__text">Odpoveď prepája so štúdiami a&nbsp;bibliografickými údajmi. Môžete sa dopytovať na konkrétne zistenie, jeho limity či význam pre prax.</p>
-    </div>
-  </section>
-
-  <!-- 4 / 5 · Možnosti 5 a 6 -->
-  <section class="slide slide--pair" aria-label="Nadväzujúce otázky a trvalý odkaz">
+  <!-- 4 / 5 · Možnosti 01–03 -->
+  <section class="slide slide--stack" aria-label="Čo Ebbie urobí: 1 až 3">
     <header class="f-header">
       <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
       <span class="f-counter">4 / 5</span>
     </header>
-    <div class="f-tile f-tile--red f-tile--cw">
-      <div class="f-tile__head"><span class="f-tile__number">05</span><h2 class="f-tile__title">Navrhne nadväzujúce otázky</h2></div>
-      <p class="f-tile__text">Pod odpoveďou ponúkne otázky, ktorými tému prehĺbite alebo sa na ňu pozriete z&nbsp;iného uhla.</p>
-    </div>
-    <div class="f-tile f-tile--yellow">
-      <div class="f-tile__head"><span class="f-tile__number">06</span><h2 class="f-tile__title">Uloží odpoveď pod odkaz, ktorý pošlete ďalej</h2></div>
-      <p class="f-tile__text">Každá odpoveď má trvalý odkaz. Kolegovi alebo klientovi ju pošlete celú, aj so&nbsp;zdrojmi.</p>
-    </div>
+    <div class="f-tile f-tile--red"><div class="f-tile__head"><span class="f-tile__number">01</span><h2 class="f-tile__title">Nájde relevantný výskum k&nbsp;téme, ktorú riešite</h2></div></div>
+    <div class="f-tile f-tile--yellow f-tile--cw"><div class="f-tile__head"><span class="f-tile__number">02</span><h2 class="f-tile__title">Posúdi, aký silný a&nbsp;limitovaný je dostupný dôkaz</h2></div></div>
+    <div class="f-tile f-tile--teal"><div class="f-tile__head"><span class="f-tile__number">03</span><h2 class="f-tile__title">Postaví argumentáciu pre vedenie, klienta či kolegov</h2></div></div>
   </section>
 
-  <!-- 5 / 5 · Prístup -->
-  <section class="slide slide--end" aria-label="Prístup k Ebbie">
+  <!-- 5 / 5 · Možnosti 04–06 -->
+  <section class="slide slide--stack" aria-label="Čo Ebbie urobí: 4 až 6">
     <header class="f-header">
       <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
       <span class="f-counter">5 / 5</span>
     </header>
-    <div class="f-shot shot-start">
-      <div class="f-shot__crop" style="--iw:1077;--cx:56;--cy:600;--cw:965;--ch:480">
-        <img src="../../system/media/ebbie-window-2026-09-21.png" alt="Úvodná obrazovka Ebbie: napíšte otázku alebo si ju nechajte pomôcť sformulovať">
-      </div>
-    </div>
-    <div class="f-block">
-      <p class="f-body" style="margin-top:0">Členovia FAME majú plný a&nbsp;neobmedzený prístup k&nbsp;Ebbie. Nečlenovia s&nbsp;ňou môžu mesačne viesť 10&nbsp;konverzácií, v&nbsp;každej najviac 10&nbsp;otázok.</p>
-      <div class="f-actions">
-        <span class="f-url f-url--primary">ebbie.sk</span>
-        <span class="f-url">fameworks.sk/clenstvo</span>
-      </div>
-    </div>
+    <div class="f-tile f-tile--red f-tile--cw"><div class="f-tile__head"><span class="f-tile__number">04</span><h2 class="f-tile__title">Dodá do prezentácie podklady, ktoré obstoja</h2></div></div>
+    <div class="f-tile f-tile--yellow"><div class="f-tile__head"><span class="f-tile__number">05</span><h2 class="f-tile__title">Navrhne nadväzujúce otázky</h2></div></div>
+    <div class="f-tile f-tile--teal f-tile--cw"><div class="f-tile__head"><span class="f-tile__number">06</span><h2 class="f-tile__title">Uloží odpoveď pod odkaz, ktorý pošlete ďalej</h2></div></div>
+    <footer class="f-footer"><span style="max-width:640px">Vyskúšať si ju môže každý. Členovia FAME majú neobmedzený prístup.</span><span class="f-url f-url--primary">ebbie.sk</span></footer>
   </section>
 
 </body>

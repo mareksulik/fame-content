@@ -208,15 +208,15 @@ body.is-render { background: none; padding: 0; gap: 0; }
 
 .slide--event .f-panel { margin-top: var(--gap-m); }
 
-/* ---------- Dvojica dlaždíc s popisom (rozloženie A, strany s vlastnosťami) ----------
-   .slide.slide--pair > .f-header + 2× .f-tile (.f-tile__head > .f-tile__number + .f-tile__title, .f-tile__text)
-   Dlaždice si delia celú výšku pod hlavičkou (málo bieleho), obsah v nich je zvislo v strede; náklon opačný, farby susedov rôzne. */
+/* ---------- Stĺpec dlaždíc (rozloženie A2, strany s vlastnosťami) ----------
+   .slide.slide--stack > .f-header + 2–3× .f-tile (.f-tile__head > .f-tile__number + .f-tile__title, voliteľne .f-tile__text) + voliteľne .f-footer
+   Dlaždice si delia celú výšku pod hlavičkou (málo bieleho), obsah v nich je zvislo v strede; náklon striedavo, farby susedov rôzne. */
 
-.slide--pair .f-tile { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 40px 52px 44px; }
-.slide--pair .f-tile:first-of-type { margin: 0 12px 40px; }
-.slide--pair .f-tile:last-of-type { margin: 0 12px 8px; }
+.slide--stack .f-tile { flex: 1; display: flex; flex-direction: column; justify-content: center; margin: 0 12px; padding: 36px 52px 40px; }
+.slide--stack .f-tile:not(:last-of-type) { margin-bottom: 32px; }
+.slide--stack .f-footer { margin-top: var(--gap-m); }
 .f-tile__head { display: flex; align-items: baseline; gap: 24px; }
-.slide--pair .f-tile__number { font-size: 48px; margin: 0; }
+.slide--stack .f-tile__number { font-size: 48px; margin: 0; }
 .f-tile__title { margin: 0; font: 700 var(--fs-tile-title) / 1.08 var(--sans); letter-spacing: -0.02em; text-wrap: balance; }
 .f-tile__text { margin: 16px 0 0; font: var(--fs-tile-text) / 1.35 var(--serif); text-wrap: pretty; }
 

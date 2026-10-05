@@ -4,7 +4,6 @@ Ebbie je AI asistent FAME. Pomáha preniesť poznatky zo štúdií do reálneho 
 
 A popri tom vás naučí rozlišovať, či čítate metaanalýzu, prípadovú štúdiu, komerčný report alebo niečí názor.
 
-Členovia FAME majú plný a neobmedzený prístup k Ebbie. Nečlenovia s ňou môžu mesačne viesť 10 konverzácií, v každej najviac 10 otázok.
+Vyskúšať si ju môže každý. Členovia FAME majú neobmedzený prístup.
 
-Vyskúšajte: ebbie.sk
-Viac o Ebbie: fameworks.sk/ebbie
+ebbie.sk
