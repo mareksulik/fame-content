@@ -28,6 +28,12 @@ Náhľady šablón pre katalóg:
 npm run render:system
 ```
 
+## Posty
+
+| Priečinok | Kanál | Obsah |
+| --- | --- | --- |
+| `posts/2026-10-linkedin-principy` | LinkedIn PDF carousel 1080 × 1080, rozloženie A, 12 strán | Našich 10 princípov z manifestu |
+
 ## Licencie
 
 Fonty Bricolage Grotesque a Newsreader sú pod SIL Open Font License 1.1 (`system/fonts/OFL-*.txt`). Logo, sticker art a fotka patria FAME.
