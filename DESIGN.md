@@ -129,7 +129,9 @@ Podujatia FAME     [fameworks.sk/eventy]
 Krátke video je jeden `.slide` (najčastejšie `.slide--portrait`) so scénami ako absolútne vrstvy a CSS animáciami; časovanie je iba v `animation-delay`. `scripts/video.mjs` posúva čas cez Web Animations API po snímkach (30 fps), takže výstup je presný, a ffmpeg ho zloží do MP4 (H.264, yuv420p) + poster z poslednej snímky. Príklad: `posts/2026-10-video-evidence-based/`.
 
 - Pohyb je „nalepenie“ samolepky: `slap` (zväčšenie 1,35 → 1, dorovnanie náklonu), text `rise`, sticker art `slide-in` sprava, odchod scény `out-up`.
-- Scéna 2,5 až 4 s, záverečná scéna drží aspoň 2 s s logom a URL.
+- Málo bieleho, veľa grafiky: samolepky (dlaždice, sticker art, tyrkysový pás) vybiehajú za okraje a pokrývajú väčšinu plátna. Biela je iba medzera medzi samolepkami.
+- Každá scéna nesie posolstvo; scéna, ktorá len opakuje meno (napr. samotné „FAME!“), sa vynecháva. Dve až tri scény po 3–5 s, záver drží aspoň 2,5 s s URL.
+- Prechod medzi scénami je pohyb samolepiek (odletia nabok, nové sa nasunú), nie prázdne prelínanie.
 - Bez zvuku, kým nie je dodaná skutočná hudba alebo hlas; text musí fungovať bez zvuku.
 - Rovnaké pravidlá ako pri statických postoch: farby dlaždíc, tmavý text na farbe, biele plátno pod logom, nič pod 24 px.
 

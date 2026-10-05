@@ -25,7 +25,7 @@ npm run render -- posts/2026-10-linkedin-principy
 Animovaný post (jeden `.slide` s CSS animáciami) do MP4 a posteru, potrebuje `ffmpeg`:
 
 ```bash
-npm run video -- posts/2026-10-video-evidence-based
+npm run video -- posts/2026-10-video-evidence-based 8.5
 ```
 
 Náhľady šablón pre katalóg:
@@ -38,7 +38,7 @@ npm run render:system
 
 | Priečinok | Kanál | Obsah |
 | --- | --- | --- |
-| `posts/2026-10-video-evidence-based` | Video 4:5 1080 × 1350, 10,5 s, MP4 bez zvuku | Evidence-based marketing prichádza na Slovensko |
+| `posts/2026-10-video-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, MP4 bez zvuku | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-linkedin-principy` | LinkedIn PDF carousel 1080 × 1080, rozloženie A, 12 strán | Našich 10 princípov z manifestu |
 
 ## Licencie
