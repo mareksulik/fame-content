@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <title>Evidence-based marketing prichádza na Slovensko – video 4:5</title>
+  <link rel="stylesheet" href="../../system/tokens.css">
+  <link rel="stylesheet" href="../../system/components.css">
+  <style>
+    /* Video 1080 × 1350, ~10,5 s. Časovanie je iba v animation-delay; scripts/video.mjs posúva čas po snímkach.
+       Scény: A 0–3,6 s, B 3,6–6,4 s, C 6,4–10,5 s. */
+    .scene { position: absolute; inset: 0; padding: var(--pad); display: flex; flex-direction: column; }
+
+    @keyframes slap {
+      0%   { opacity: 0; transform: scale(1.35) rotate(var(--r0, 0deg)); }
+      60%  { opacity: 1; transform: scale(.97) rotate(var(--r, 0deg)); }
+      100% { opacity: 1; transform: scale(1) rotate(var(--r, 0deg)); }
+    }
+    @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes out-up { to { opacity: 0; transform: translateY(-80px); } }
+    @keyframes slide-in { from { transform: translateX(110%) rotate(6deg); } to { transform: none; } }
+
+    .slap { animation: slap .45s cubic-bezier(.2,.8,.3,1.2) both; }
+    .rise { animation: rise .5s cubic-bezier(.2,.8,.2,1) both; }
+
+    /* Scéna A: titulok z nalepených dlaždíc */
+    .scene--a { justify-content: center; gap: 36px; animation: out-up .3s ease-in 3.3s both; }
+    .scene--a .f-tile { align-self: flex-start; padding: 24px 40px 30px; font: 800 104px/1 var(--sans); letter-spacing: -.035em; }
+    .scene--a .t1 { --r0: -9deg; --r: -2deg; animation-delay: .15s; }
+    .scene--a .t2 { --r0: 8deg; --r: 2deg; animation-delay: .55s; margin-left: 40px; }
+    .scene--a .f-title { margin-top: 24px; font-size: 88px; animation-delay: 1.05s; }
+
+    /* Scéna B: samolepky + FAME! */
+    .scene--b { justify-content: flex-end; animation: fade-in .01s linear 3.6s both, out-up .3s ease-in 6.1s forwards; }
+    .scene--b .f-art { top: 170px; width: 860px; animation: slide-in .55s cubic-bezier(.2,.8,.3,1.1) 3.65s both; }
+    .scene--b .f-display { font-size: 240px; line-height: .9; letter-spacing: -.045em; margin-bottom: 40px; animation-delay: 4.15s; }
+
+    /* Scéna C: logo, veta o komunite, URL */
+    .scene--c { animation: fade-in .3s ease-out 6.4s both; }
+    .scene--c .f-header { animation: fade-in .4s ease-out 6.45s both; }
+    .scene--c .lines { margin-top: auto; display: grid; gap: 24px; }
+    .scene--c .f-title { font-size: 84px; line-height: 1.05; }
+    .scene--c .l1 { animation-delay: 6.7s; }
+    .scene--c .l2 { animation-delay: 7.2s; }
+    .scene--c .l3 { animation-delay: 7.7s; }
+    .scene--c .hl { --r0: -6deg; --r: -2deg; display: inline-block; padding: 0 14px 6px; animation-delay: 7.45s; }
+    .scene--c .f-url { margin: 64px 0 auto; padding: 24px 44px; font-size: 44px; --r0: 5deg; animation-delay: 8.4s; }
+  </style>
+</head>
+<body>
+<!-- Text: zadanie používateľa (5. 10. 2026), doslovne. -->
+
+  <section class="slide slide--portrait" aria-label="Evidence-based marketing prichádza na Slovensko">
+
+    <div class="scene scene--a">
+      <div class="f-tile f-tile--yellow slap t1">Evidence-based</div>
+      <div class="f-tile f-tile--teal slap t2">marketing</div>
+      <p class="f-title rise">prichádza na&nbsp;Slovensko!</p>
+    </div>
+
+    <div class="scene scene--b">
+      <img class="f-art" src="../../system/media/stickers-bleed.png" alt="">
+      <p class="f-display slap">FAME!</p>
+    </div>
+
+    <div class="scene scene--c">
+      <header class="f-header">
+        <img class="f-logo" src="../../system/brand/logo.png" alt="FAME – Friends of Applied Marketing sciencE">
+      </header>
+      <div class="lines">
+        <p class="f-title rise l1">FAME – komunita ľudí z&nbsp;marketingu,</p>
+        <p class="f-title rise l2">ktorí stavajú <span class="f-tile f-tile--red slap hl">na&nbsp;vede a&nbsp;dátach,</span></p>
+        <p class="f-title rise l3">nie na&nbsp;trendoch a&nbsp;pocitoch.</p>
+      </div>
+      <span class="f-url f-url--primary slap">fameworks.sk</span>
+    </div>
+
+  </section>
+
+</body>
+</html>

@@ -5,7 +5,8 @@
   "description": "FAME dizajnový systém pre sociálne siete a renderovanie postov do PDF/PNG.",
   "scripts": {
     "render": "node scripts/render.mjs",
-    "render:system": "node scripts/render.mjs system/templates nahlad"
+    "render:system": "node scripts/render.mjs system/templates nahlad",
+    "video": "node scripts/video.mjs"
   },
   "devDependencies": {
     "playwright-core": "1.62.1"

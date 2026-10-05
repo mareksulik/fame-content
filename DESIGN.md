@@ -124,6 +124,15 @@ Text
 Podujatia FAME     [fameworks.sk/eventy]
 ```
 
+## Video
+
+Krátke video je jeden `.slide` (najčastejšie `.slide--portrait`) so scénami ako absolútne vrstvy a CSS animáciami; časovanie je iba v `animation-delay`. `scripts/video.mjs` posúva čas cez Web Animations API po snímkach (30 fps), takže výstup je presný, a ffmpeg ho zloží do MP4 (H.264, yuv420p) + poster z poslednej snímky. Príklad: `posts/2026-10-video-evidence-based/`.
+
+- Pohyb je „nalepenie“ samolepky: `slap` (zväčšenie 1,35 → 1, dorovnanie náklonu), text `rise`, sticker art `slide-in` sprava, odchod scény `out-up`.
+- Scéna 2,5 až 4 s, záverečná scéna drží aspoň 2 s s logom a URL.
+- Bez zvuku, kým nie je dodaná skutočná hudba alebo hlas; text musí fungovať bez zvuku.
+- Rovnaké pravidlá ako pri statických postoch: farby dlaždíc, tmavý text na farbe, biele plátno pod logom, nič pod 24 px.
+
 ## Súbory systému
 
 | Súbor | Obsah |
@@ -134,6 +143,7 @@ Podujatia FAME     [fameworks.sk/eventy]
 | `system/index.html` | katalóg farieb, písma, komponentov a rozložení |
 | `system/fonts`, `brand`, `media` | Bricolage Grotesque, Newsreader (OFL), logá, sticker art, fotka |
 | `scripts/render.mjs` | HTML → PDF + PNG cez lokálny Chrome |
+| `scripts/video.mjs` | animovaný HTML → MP4 + poster (Chrome + ffmpeg) |
 
 Zmena systému (nový prvok, pravidlo) znamená v jednom kroku upraviť CSS, tento dokument, katalóg a Design System artefakt, potom spustiť `npm run render:system` a skontrolovať náhľady. Ak sa zmení web (paleta, fonty, pravidlá v `fame-web/AGENTS.md`), web má prednosť a systém sa zosynchronizuje.
 
