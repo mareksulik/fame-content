@@ -1,2 +1,4 @@
 node_modules/
 .DS_Store
+posts/*/out/frames/
+posts/*/out/still-*.png

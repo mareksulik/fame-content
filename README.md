@@ -28,6 +28,13 @@ Animovaný post (jeden `.slide` s CSS animáciami) do MP4 a posteru, potrebuje `
 npm run video -- posts/2026-10-video-evidence-based 8.5
 ```
 
+Video v Blenderi (3D samolepky, ploché svetlo; potrebuje Blender a ffmpeg):
+
+```bash
+blender -b -P posts/2026-10-blender-evidence-based/scene.py -- render
+ffmpeg -framerate 30 -i posts/2026-10-blender-evidence-based/out/frames/f%04d.png -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart posts/2026-10-blender-evidence-based/out/fame-blender-evidence-based.mp4
+```
+
 Náhľady šablón pre katalóg:
 
 ```bash
@@ -39,6 +46,7 @@ npm run render:system
 | Priečinok | Kanál | Obsah |
 | --- | --- | --- |
 | `posts/2026-10-linkedin-ebbie` | LinkedIn PDF carousel 1080 × 1080, rozloženie A2, 5 strán | Predstavenie Ebbie |
+| `posts/2026-10-blender-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, Blender (3D samolepky, ploché svetlo), bez zvuku | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-video-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, MP4 bez zvuku | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-linkedin-principy` | LinkedIn PDF carousel 1080 × 1080, rozloženie A, 12 strán | Našich 10 princípov z manifestu |
 

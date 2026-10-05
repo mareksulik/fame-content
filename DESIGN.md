@@ -141,6 +141,8 @@ Krátke video je jeden `.slide` (najčastejšie `.slide--portrait`) so scénami 
 - Bez zvuku, kým nie je dodaná skutočná hudba alebo hlas; text musí fungovať bez zvuku.
 - Rovnaké pravidlá ako pri statických postoch: farby dlaždíc, tmavý text na farbe, biele plátno pod logom, nič pod 24 px.
 
+**Blender** (`posts/2026-10-blender-evidence-based/scene.py`): rovnaké rozloženie v 3D. Samolepky sú tenké kvádre, ktoré sa preklopia do záberu ako karty; kamera sa približuje a švihom prejde na druhú časť „stola“; riadky textu sa vynárajú cez tyrkysový pás. Ploché svetlo: všetky materiály sú emisné a view transform je Standard, takže farby sú presne hex z palety a nevznikajú tiene. Písmo `system/fonts/BricolageGrotesque-ExtraBold.ttf` je statická inštancia váhy 800 zlúčená z rovnakých OFL woff2 súborov ako web (latin + latin-ext), lebo Blender woff2 nenačíta. Každý prvok sa zobrazí až od svojej prvej animovanej snímky (`visible_from`), inak by visel v začiatočnej polohe. Kontrola: `-- stills` vyrenderuje kontrolné snímky; výsledné MP4 over snímkami cez `ffmpeg -ss`.
+
 ## Súbory systému
 
 | Súbor | Obsah |
@@ -149,7 +151,7 @@ Krátke video je jeden `.slide` (najčastejšie `.slide--portrait`) so scénami 
 | `system/components.css` | plátno, komponenty, rozloženia A a B |
 | `system/templates/` | šablóny + náhľady v `out/` |
 | `system/index.html` | katalóg farieb, písma, komponentov a rozložení |
-| `system/fonts`, `brand`, `media` | Bricolage Grotesque, Newsreader (OFL), logá, sticker art, fotka |
+| `system/fonts`, `brand`, `media` | Bricolage Grotesque, Newsreader (OFL; woff2 pre web/HTML, TTF 800 pre Blender), logá, sticker art, fotka, screenshoty Ebbie |
 | `scripts/render.mjs` | HTML → PDF + PNG cez lokálny Chrome |
 | `scripts/video.mjs` | animovaný HTML → MP4 + poster (Chrome + ffmpeg) |
 
