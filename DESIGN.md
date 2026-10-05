@@ -147,6 +147,8 @@ Krátke video je jeden `.slide` (najčastejšie `.slide--portrait`) so scénami 
 
 **Blender** (`posts/2026-10-blender-evidence-based/scene.py`): rovnaké rozloženie v 3D. Samolepky sú tenké kvádre, ktoré sa preklopia do záberu ako karty; kamera sa približuje a švihom prejde na druhú časť „stola“; riadky textu sa vynárajú cez tyrkysový pás. Ploché svetlo: všetky materiály sú emisné a view transform je Standard, takže farby sú presne hex z palety a nevznikajú tiene. Písmo `system/fonts/BricolageGrotesque-ExtraBold.ttf` je statická inštancia váhy 800 zlúčená z rovnakých OFL woff2 súborov ako web (latin + latin-ext), lebo Blender woff2 nenačíta. Každý prvok sa zobrazí až od svojej prvej animovanej snímky (`visible_from`), inak by visel v začiatočnej polohe. Kontrola: `-- stills` vyrenderuje kontrolné snímky; výsledné MP4 over snímkami cez `ffmpeg -ss`.
 
+3D kvádre (`posts/2026-10-blender-dobry-marketing/scene.py`): horné steny presne hex z palety, bočné steny ten istý odtieň na 72 % jasu podľa normály (bez svetiel a vrhaných tieňov), text vytlačený na hornej stene. Logo je originálny `logo.png` ako textúra iba na hornej stene dosky, bočné steny biele; samolepky loga sa do 3D neprekresľujú. Pravidlá z kontroly: text na kvádroch odsadený od okraja tak, aby ho perspektíva neodrezala; ozdobné kvádre padajú nízko alebo vyrastajú zo stola, aby nepreleteli pred kamerou cez text; výzva dopadá nízko, nie cez logo.
+
 ## Súbory systému
 
 | Súbor | Obsah |
