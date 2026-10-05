@@ -1,0 +1,31 @@
+/* Séria princípov: rozloženie pod sebou, béžový blok vybieha za spodný okraj (málo bieleho). */
+body { display: block; padding: 0; gap: 0; background: none; }
+
+.principle.slide.slide--portrait { width: 1080px; height: 1350px; padding: var(--pad) var(--pad) 0; display: flex; flex-direction: column; }
+
+/* Dlaždica s číslom vybieha za oba okraje plátna; číslo stojí na okraji 72 px. */
+.principle .number-tile {
+  align-self: stretch;
+  margin: 8px -160px 0;
+  padding: 0 232px 28px;
+  font: 800 340px/1 var(--sans);
+  letter-spacing: -.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Názov je zvislo v strede medzi dlaždicou a blokom. */
+.principle .title {
+  margin: auto 0;
+  padding: 40px 0;
+  font: 800 80px/1.04 var(--sans);
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.principle .block {
+  margin: 0 calc(-1 * var(--pad));
+  padding: 48px var(--pad) 72px;
+  background: var(--beige);
+}
+.principle .block .f-body { margin: 0; }
+.principle .block .f-actions { margin-top: 32px; }

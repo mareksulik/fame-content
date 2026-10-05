@@ -66,6 +66,7 @@ npm run render:system
 | --- | --- | --- |
 | `posts/2026-10-linkedin-ebbie` | LinkedIn PDF carousel 1080 × 1080, rozloženie A2, 5 strán | Predstavenie Ebbie |
 | `posts/2026-10-manim-humor-v-reklame` | Video 4:5, 8 s, Manim, animovaný graf z odpovede Ebbie | Oplatí sa v reklame humor? |
+| `posts/2026-10-remotion-principy` | Séria 10 videí 4:5, 8 s, Remotion (`npm run render:principles` v `remotion/`) | Našich 10 princípov, jedno video na princíp |
 | `posts/2026-10-remotion-evidence-based` | Video 4:5, 8,5 s, Remotion (`remotion/`) | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-blender-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, Blender (3D samolepky, ploché svetlo), bez zvuku | Evidence-based marketing prichádza na Slovensko |
 | `posts/2026-10-video-evidence-based` | Video 4:5 1080 × 1350, 8,5 s, MP4 bez zvuku | Evidence-based marketing prichádza na Slovensko |

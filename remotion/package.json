@@ -5,7 +5,8 @@
   "description": "FAME videá v Remotion (licencia: Free License pre neziskové organizácie).",
   "scripts": {
     "studio": "remotion studio src/index.ts --public-dir ../system",
-    "render": "remotion render src/index.ts --public-dir ../system"
+    "render": "remotion render src/index.ts --public-dir ../system",
+    "render:principles": "sh render-principles.sh"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.533",
