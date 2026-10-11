@@ -1,7 +1,7 @@
 // Video „Ako funguje Ebbie“: reálna otázka „Kupujú ľudia verne jednu značku, alebo repertoár značiek?“ a jej zdieľaná
 // odpoveď (ebbie.sk/a/1047e3d5-…, 11. 10. 2026). Snímky obrazovky: posts/2026-10-remotion-ebbie-repertoar/capture.mjs.
 // Ďalšie otázky: výrez screenshotu chatu s tou istou odpoveďou (chat-followups.png, 11. 10. 2026).
-// Úvod, päť krokov vo farebných pásoch, samostatný záver. 4:5, 19,5 s.
+// Úvod, päť krokov vo farebných pásoch, samostatný záver. 4:5, 22 s.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "../../system/tokens.css";
@@ -13,12 +13,12 @@ const inOut = { ...clamp, easing: Easing.inOut(Easing.cubic) };
 const K = 1.5; // snímka má 1,5× CSS px stránky (viewport 720 px = plátno 1080 px)
 
 // Začiatky scén (snímky pri 30 fps).
-const START = 66; // výber otázky
-const ANSWER = 150; // odpoveď
-const SOURCES = 230; // Verdikt a Zdroje
-const CHAT = 318; // ďalšie otázky
-const SHARE = 392; // zdieľanie
-const END = 468; // záver
+const START = 75; // výber otázky
+const ANSWER = 168; // odpoveď
+const SOURCES = 263; // Verdikt a Zdroje
+const CHAT = 366; // ďalšie otázky
+const SHARE = 450; // zdieľanie
+const END = 536; // záver
 
 // Posun odpovede v CSS px stránky: úvod odpovede, potom Verdikt a Zdroje.
 const SCROLL: [number[], number[]] = [
@@ -96,7 +96,7 @@ const Outro = () => {
   };
   const url = useSlap(END + 26, 10, -2.5, 1.5);
   const wipe = interpolate(frame, [END - 4, END + 8], [100, 0], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const drift = interpolate(frame, [END + 30, END + 117], [0, -24], clamp);
+  const drift = interpolate(frame, [END + 30, END + 124], [0, -28], clamp);
   if (frame < END - 4) return null;
   return (
     <AbsoluteFill className="outro" style={{ transform: `translateY(${wipe}%)` }}>
