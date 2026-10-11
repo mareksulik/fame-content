@@ -1,0 +1,52 @@
+Preskočiť na obsah
+Ebbie
+História
+Taxonómia
+Zdroje
+EN
+
+Zostáva: 10 z 10 konverzácií · 10 z 10 otázok v konverzácii
+
+Prihlásiť sa
+Stať sa členom
+Nový chat
+
+Zdieľaná odpoveď · 11. 10. 2026
+
+Kupujú ľudia verne jednu značku, alebo repertoár značiek?
+
+Vo väčšine bežných nákupných kategórií ľudia nekupujú výhradne jednu značku, ale striedajú malý repertoár značiek [1], [2], [3]. Úplná a výhradná vernosť jednej značke je v bežnom spotrebnom tovare zriedkavá [2]. Tento vzorec správania platí ako empirická zákonitosť naprieč desiatkami trhov a produktových kategórií [2], [3]. Dáta však ukazujú jasné rozdelenie trhov na dva odlišné svety: repertoárové a predplatiteľské [1]. Zatiaľ čo pri balenom tovare zákazníci prirodzene rotujú medzi viacerými alternatívami, pri zmluvných službách typu bankových kariet či telekomunikácií väčšina využíva len jedného poskytovateľa [1], [4].
+
+V repertoárových trhoch zákazníci rozdeľujú svoje nákupy medzi niekoľko značiek a iba malý podiel kupujúcich zostáva stopercentne verný [1], [2]. Napríklad pri bežnom spotrebnom tovare alebo pohonných hmotách dosahuje podiel výhradne verných kupujúcich často len okolo 8 až 13 percent [1], [5]. Väčšie značky majú viac kupujúcich, ktorí ich zároveň kupujú o niečo častejšie, čo opisuje zákonitosť dvojitého ohrozenia [1], [2].
+
+Tento mechanizmus správania formalizuje NBD-Dirichlet model [1], [3]. Model ukazuje, že spotrebiteľ má stabilnú pravdepodobnosť nákupu viacerých značiek, no jeho konkrétne voľby v čase vyzerajú náhodne [3].
+
+Úplne iná situácia nastáva v predplatiteľských a zmluvných kategóriách:
+
+V predplatiteľských trhoch dosahuje podiel výhradne verných zákazníkov bežne 60 až 80 percent [1], [4].
+Zákazníci tu alokujú takmer celú svoju spotrebu jednému poskytovateľovi, pričom priemerný repertoár je blízky číslu jedna [1].
+V modeli NBD-Dirichlet sa tento rozdiel prejavuje v parametri prechádzania: kým repertoárové trhy majú hodnoty bežne nad 0.6, predplatiteľské klesajú pod 0.2 [1].
+
+Hranice tohto poznania spočívajú v povahe dát. Všetky zistenia pochádzajú z pozorovacích panelových nákupných dát a matematických modelov, nie z kontrolovaných experimentov [1], [4], [2]. Väčšina dôkazov navyše pochádza z jedného výskumného okruhu okolo Ehrenberg-Bass Institute [1], [3]. Model predpokladá stabilný trh bez silnej segmentácie [2], [3]. Ak na trhu funguje silné vyhľadávanie pestrosti pri každom obede či špecifické niche publikum, model vykazuje odchýlky od reality. Pre marketéra to znamená zásadnú vec: snaha urobiť z repertoárového spotrebiteľa výhradne verného fanúšika ide proti prirodzenému nákupnému správaniu [1], [3]. Rast značky v repertoárových kategóriách preto súvisí najmä s budovaním dostupnosti a získavaním nových či občasných kupujúcich, nie s umelým navyšovaním vernosti [3].
+
+Verdikt
+zákonitosť
+
+Rovnaký vzorec sa opakuje naprieč desiatkami nezávislých datasetov, kategórií a krajín. Odpoveď sa opiera o prehľadová štúdia, 3 observačné štúdie a model/metóda.
+
+Čo znamenajú tieto stavy
+
+Zdroje
+
+[1] Byron Sharp, Malcolm Wright, Gerald Goodhardt (2002). Purchase Loyalty is Polarised into Either Repertoire or Subscription Patterns. Australasian Marketing JournalB · nezávisle potvrdené
+[2] Mark D. Uncles, Andrew S. C. Ehrenberg, Kathy Hammond (1995). Patterns of Buyer Behavior: Regularities, Models, and Extensions. Marketing ScienceA · zákonitosť
+[3] Byron Sharp, Malcolm Wright, John Dawes, Carl Driesener, Lars Meyer-Waarden, Lara Stocchi, Philip Stern (2012). It's a Dirichlet World: Modeling Individuals' Loyalties Reveals How Brands Compete, Grow, and Decline. Journal of Advertising ResearchA · zákonitosť
+[4] Byron Sharp, Malcolm Wright (2000). Do Subscription Markets Show Dirichlet Patterns?. ANZMAC 2000 (Visionary Marketing for the 21st Century)C · obmedzené overenie
+[5] Jaywant Singh, Francesca Dall’Olmo Riley (2021). Consumer perceptions and behaviour towards branded commodities. Journal of Consumer BehaviourA · nezávisle potvrdené
+Zobraziť relevantné, ale necitované (3)
+
+Odpoveď automaticky vytvoril jazykový model Ebbie z výskumných poznámok k akademickým marketingovým prácam a môže obsahovať chyby. Ako Ebbie funguje. Polož vlastnú otázku .
+
+© 2026 Friends of Applied Marketing sciencE, o. z.
+Zdroje, práva a súkromie
+Nastavenia cookies
