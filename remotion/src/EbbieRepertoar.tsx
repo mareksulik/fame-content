@@ -1,7 +1,7 @@
 // Video „Ako funguje Ebbie“: reálna otázka „Kupujú ľudia verne jednu značku, alebo repertoár značiek?“ a jej zdieľaná
 // odpoveď (ebbie.sk/a/1047e3d5-…, 11. 10. 2026). Snímky obrazovky: posts/2026-10-remotion-ebbie-repertoar/capture.mjs.
 // Ďalšie otázky: výrez screenshotu chatu s tou istou odpoveďou (chat-followups.png, 11. 10. 2026).
-// Úvod, tri kroky vo farebných pásoch, samostatný záver. 4:5, 19 s.
+// Úvod, štyri kroky vo farebných pásoch, samostatný záver. 4:5, 19 s.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "../../system/tokens.css";
@@ -15,19 +15,21 @@ const K = 1.5; // snímka má 1,5× CSS px stránky (viewport 720 px = plátno 1
 // Začiatky scén (snímky pri 30 fps).
 const START = 75; // výber otázky
 const ANSWER = 165; // odpoveď
-const CHAT = 330; // ďalšie otázky
-const END = 440; // záver
+const SOURCES = 250; // Verdikt a Zdroje
+const CHAT = 345; // ďalšie otázky
+const END = 445; // záver
 
 // Posun odpovede v CSS px stránky: úvod odpovede, potom Verdikt a Zdroje.
 const SCROLL: [number[], number[]] = [
-  [ANSWER + 12, ANSWER + 80, ANSWER + 95, CHAT - 4],
-  [0, 170, 170, 1670],
+  [ANSWER + 12, SOURCES - 6, SOURCES + 22, CHAT - 4],
+  [0, 220, 1610, 1670],
 ];
 
 const BANDS = [
-  { n: 1, tone: "yellow", from: START + 8, to: ANSWER - 6, r: -2, title: "Napíšte otázku alebo ju vyberte z kategórie" },
-  { n: 2, tone: "teal", from: ANSWER + 16, to: CHAT - 6, r: 2, title: "Ebbie nájde relevantný výskum k otázke a zostaví odpoveď" },
-  { n: 3, tone: "red", from: CHAT + 16, to: END - 4, r: -2, title: "Môžete sa do témy ponoriť hlbšie s ďalšími otázkami" },
+  { n: 1, tone: "yellow", from: START + 8, to: ANSWER - 6, r: -2, title: "Napíšte otázku alebo ju vyberte z kategórie", text: "" },
+  { n: 2, tone: "teal", from: ANSWER + 16, to: SOURCES - 6, r: 2, title: "Ebbie nájde relevantný výskum k otázke a zostaví odpoveď", text: "" },
+  { n: 3, tone: "red", from: SOURCES + 14, to: CHAT - 6, r: -2, title: "Posúďte, aký silný je dôkaz", text: "a ktoré zdroje sa téme venujú podrobnejšie." },
+  { n: 4, tone: "yellow", from: CHAT + 16, to: END - 4, r: 2, title: "Môžete sa do témy ponoriť hlbšie s ďalšími otázkami", text: "" },
 ] as const;
 
 function useSlap(start: number, r0: number, r: number, s0 = 1.3) {
@@ -54,7 +56,10 @@ const Band = ({ b }: { b: (typeof BANDS)[number] }) => {
   return (
     <div className={`e-band f-tile--${b.tone}`} style={{ opacity: slap.opacity, transform: `${away.transform} ${slap.transform}` }}>
       <span className="e-band__n">{b.n}</span>
-      <h2 className="e-band__title">{b.title}</h2>
+      <div>
+        <h2 className="e-band__title">{b.title}</h2>
+        {b.text && <p className="e-band__text">{b.text}</p>}
+      </div>
     </div>
   );
 };

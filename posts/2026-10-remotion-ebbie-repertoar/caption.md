@@ -12,12 +12,13 @@ a prekódovanie na yuv420p ako v `render-principles.sh`.
 Úvod: Ako funguje Ebbie, naša evidence-based marketing asistentka?
 1. Napíšte otázku alebo ju vyberte z kategórie
 2. Ebbie nájde relevantný výskum k otázke a zostaví odpoveď
-3. Môžete sa do témy ponoriť hlbšie s ďalšími otázkami
+3. Posúďte, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie.
+4. Môžete sa do témy ponoriť hlbšie s ďalšími otázkami
 Záver (samostatný záber): Vyskúšať si ju môže každý. ebbie.sk
 
 ## Text príspevku
 
-Ako funguje Ebbie, naša evidence-based marketing asistentka? Napíšte otázku alebo ju vyberte z kategórie. Ebbie nájde relevantný výskum k otázke a zostaví odpoveď. Do témy sa potom môžete ponoriť hlbšie s ďalšími otázkami.
+Ako funguje Ebbie, naša evidence-based marketing asistentka? Napíšte otázku alebo ju vyberte z kategórie. Ebbie nájde relevantný výskum k otázke a zostaví odpoveď. Posúdite, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie. Do témy sa potom môžete ponoriť hlbšie s ďalšími otázkami.
 
 Vyskúšať si ju môže každý.
 
