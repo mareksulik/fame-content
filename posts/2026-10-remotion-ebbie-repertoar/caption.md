@@ -1,6 +1,6 @@
 # Ebbie: Kupujú ľudia verne jednu značku, alebo repertoár značiek?
 
-Video 4:5, 19 s, bez zvuku: `out/fame-ebbie-repertoar.mp4` (Remotion, kompozícia `EbbieRepertoar`).
+Video 4:5, 19,5 s, bez zvuku: `out/fame-ebbie-repertoar.mp4` (Remotion, kompozícia `EbbieRepertoar`).
 Obrazovky sú reálne: pripravená otázka v téme Zákonitosti nákupu na ebbie.sk a zdieľaná odpoveď
 https://ebbie.sk/a/1047e3d5-a496-4521-a9ce-04b720c251b2 (11. 10. 2026); ďalšie otázky sú výrez screenshotu chatu s tou istou odpoveďou (`chat-followups.png`). Nové snímky: `node posts/2026-10-remotion-ebbie-repertoar/capture.mjs`.
 
@@ -12,14 +12,13 @@ a prekódovanie na yuv420p ako v `render-principles.sh`.
 Úvod: Ako funguje Ebbie, naša evidence-based marketing asistentka?
 1. Napíšte otázku alebo ju vyberte z kategórie
 2. Ebbie nájde relevantný výskum k otázke a zostaví odpoveď
-3. Posúďte, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie.
+3. Posúďte, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie
 4. Môžete sa do témy ponoriť hlbšie s ďalšími otázkami
-Záver (samostatný záber): Vyskúšať si ju môže každý. ebbie.sk
+5. Odpoveď môžete vyzdieľať vašim kolegom
+Záver (samostatný záber): Vyskúšajte si Ebbie na ebbie.sk
 
 ## Text príspevku
 
-Ako funguje Ebbie, naša evidence-based marketing asistentka? Napíšte otázku alebo ju vyberte z kategórie. Ebbie nájde relevantný výskum k otázke a zostaví odpoveď. Posúdite, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie. Do témy sa potom môžete ponoriť hlbšie s ďalšími otázkami.
+Ako funguje Ebbie, naša evidence-based marketing asistentka? Napíšte otázku alebo ju vyberte z kategórie. Ebbie nájde relevantný výskum k otázke a zostaví odpoveď. Posúdite, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie. Do témy sa môžete ponoriť hlbšie s ďalšími otázkami a odpoveď vyzdieľať kolegom.
 
-Vyskúšať si ju môže každý.
-
-ebbie.sk
+Vyskúšajte si Ebbie na ebbie.sk

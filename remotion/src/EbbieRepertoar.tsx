@@ -1,7 +1,7 @@
 // Video „Ako funguje Ebbie“: reálna otázka „Kupujú ľudia verne jednu značku, alebo repertoár značiek?“ a jej zdieľaná
 // odpoveď (ebbie.sk/a/1047e3d5-…, 11. 10. 2026). Snímky obrazovky: posts/2026-10-remotion-ebbie-repertoar/capture.mjs.
 // Ďalšie otázky: výrez screenshotu chatu s tou istou odpoveďou (chat-followups.png, 11. 10. 2026).
-// Úvod, štyri kroky vo farebných pásoch, samostatný záver. 4:5, 19 s.
+// Úvod, päť krokov vo farebných pásoch, samostatný záver. 4:5, 19,5 s.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "../../system/tokens.css";
@@ -13,11 +13,12 @@ const inOut = { ...clamp, easing: Easing.inOut(Easing.cubic) };
 const K = 1.5; // snímka má 1,5× CSS px stránky (viewport 720 px = plátno 1080 px)
 
 // Začiatky scén (snímky pri 30 fps).
-const START = 75; // výber otázky
-const ANSWER = 165; // odpoveď
-const SOURCES = 250; // Verdikt a Zdroje
-const CHAT = 345; // ďalšie otázky
-const END = 445; // záver
+const START = 66; // výber otázky
+const ANSWER = 150; // odpoveď
+const SOURCES = 230; // Verdikt a Zdroje
+const CHAT = 318; // ďalšie otázky
+const SHARE = 392; // zdieľanie
+const END = 468; // záver
 
 // Posun odpovede v CSS px stránky: úvod odpovede, potom Verdikt a Zdroje.
 const SCROLL: [number[], number[]] = [
@@ -28,8 +29,9 @@ const SCROLL: [number[], number[]] = [
 const BANDS = [
   { n: 1, tone: "yellow", from: START + 8, to: ANSWER - 6, r: -2, title: "Napíšte otázku alebo ju vyberte z kategórie", text: "" },
   { n: 2, tone: "teal", from: ANSWER + 16, to: SOURCES - 6, r: 2, title: "Ebbie nájde relevantný výskum k otázke a zostaví odpoveď", text: "" },
-  { n: 3, tone: "red", from: SOURCES + 14, to: CHAT - 6, r: -2, title: "Posúďte, aký silný je dôkaz", text: "a ktoré zdroje sa téme venujú podrobnejšie." },
-  { n: 4, tone: "yellow", from: CHAT + 16, to: END - 4, r: 2, title: "Môžete sa do témy ponoriť hlbšie s ďalšími otázkami", text: "" },
+  { n: 3, tone: "red", from: SOURCES + 14, to: CHAT - 6, r: -2, title: "Posúďte, aký silný je dôkaz a ktoré zdroje sa téme venujú podrobnejšie", text: "" },
+  { n: 4, tone: "yellow", from: CHAT + 16, to: SHARE - 6, r: 2, title: "Môžete sa do témy ponoriť hlbšie s ďalšími otázkami", text: "" },
+  { n: 5, tone: "teal", from: SHARE + 8, to: END - 4, r: -2, title: "Odpoveď môžete vyzdieľať vašim kolegom", text: "" },
 ] as const;
 
 function useSlap(start: number, r0: number, r: number, s0 = 1.3) {
@@ -92,9 +94,9 @@ const Outro = () => {
     const p = spring({ frame: frame - start, fps, config: { damping: 13, stiffness: 140, mass: 0.8 } });
     return { transform: `translateX(${(1 - p) * 120 * dir}%) rotate(${interpolate(p, [0, 1], [dir * 10, dir * -2.5])}deg)` };
   };
-  const url = useSlap(END + 40, 10, -3, 1.6);
-  const wipe = interpolate(frame, [END - 4, END + 8], [100, 0], { ...clamp, easing: Easing.out(Easing.exp) });
-  const drift = interpolate(frame, [END + 40, END + 130], [0, -24], clamp);
+  const url = useSlap(END + 26, 10, -2.5, 1.5);
+  const wipe = interpolate(frame, [END - 4, END + 8], [100, 0], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const drift = interpolate(frame, [END + 30, END + 117], [0, -24], clamp);
   if (frame < END - 4) return null;
   return (
     <AbsoluteFill className="outro" style={{ transform: `translateY(${wipe}%)` }}>
@@ -102,11 +104,10 @@ const Outro = () => {
         <Img className="f-logo" src={staticFile("brand/logo.png")} />
       </header>
       <div className="outro__words" style={{ transform: `translateY(${drift}px)` }}>
-        <div className="outro__w f-tile--yellow" style={fly(END + 6, -1)}>Vyskúšať</div>
-        <div className="outro__w outro__w--2 f-tile--teal" style={fly(END + 14, 1)}>si ju môže</div>
-        <div className="outro__w outro__w--3 f-tile--red" style={fly(END + 22, -1)}>každý.</div>
+        <div className="outro__w f-tile--yellow" style={fly(END + 6, -1)}>Vyskúšajte</div>
+        <div className="outro__w outro__w--2 f-tile--teal" style={fly(END + 14, 1)}>si Ebbie</div>
+        <div className="outro__w outro__w--3 f-tile--red" style={url}>na ebbie.sk</div>
       </div>
-      <span className="f-url outro__url" style={url}>ebbie.sk</span>
     </AbsoluteFill>
   );
 };
@@ -126,7 +127,11 @@ export const EbbieRepertoar = () => {
 
   const y = interpolate(frame, SCROLL[0], SCROLL[1], inOut);
   const chat = interpolate(frame, [CHAT, CHAT + 12], [0, 1], clamp);
-  const chatY = interpolate(frame, [CHAT, END], [-400, -480], inOut);
+  const chatY = interpolate(frame, [CHAT, SHARE], [-400, -470], inOut);
+  // Krok 5: kurzor klikne na Zdieľať (tlačidlo je vo výreze na x 149–291, y 579–635).
+  const sMove = interpolate(frame, [SHARE + 4, SHARE + 30], [0, 1], inOut);
+  const sPress = interpolate(frame, [SHARE + 32, SHARE + 35, SHARE + 40], [1, 0.82, 1], clamp);
+  const sFocus = interpolate(frame, [SHARE + 32, SHARE + 36], [0, 1], clamp);
 
   return (
     <AbsoluteFill className="slide slide--portrait ebbie">
@@ -137,6 +142,14 @@ export const EbbieRepertoar = () => {
       {chat > 0 && (
         <AbsoluteFill style={{ opacity: chat, background: "var(--paper)" }}>
           <Img className="chat" src={staticFile("media/ebbie-repertoar/chat-followups.png")} style={{ transform: `translateY(${chatY}px)` }} />
+          {frame >= SHARE && (
+            <>
+              <div className="share" style={{ top: chatY + 573, opacity: sFocus }} />
+              <svg className="cursor" viewBox="0 0 24 24" style={{ left: interpolate(sMove, [0, 1], [760, 250]), top: interpolate(sMove, [0, 1], [560, chatY + 612]), transform: `scale(${sPress})` }}>
+                <path d="M3 2l17 9.5-7.5 1.8L9 21z" fill="#000" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" />
+              </svg>
+            </>
+          )}
         </AbsoluteFill>
       )}
 
