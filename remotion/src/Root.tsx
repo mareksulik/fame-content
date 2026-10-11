@@ -7,7 +7,7 @@ import { PRINCIPLES } from "./principles";
 // 4:5 pre feed LinkedInu a Instagramu, 30 fps.
 export const Root = () => (
   <>
-    <Composition id="EbbieRepertoar" component={EbbieRepertoar} width={1080} height={1350} fps={30} durationInFrames={540} />
+    <Composition id="EbbieRepertoar" component={EbbieRepertoar} width={1080} height={1350} fps={30} durationInFrames={570} />
     <Composition id="EvidenceBased" component={EvidenceBased} width={1080} height={1350} fps={30} durationInFrames={255} />
     {PRINCIPLES.map((p) => (
       <Composition
