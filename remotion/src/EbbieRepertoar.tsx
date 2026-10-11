@@ -1,5 +1,6 @@
 // Video Ebbie: reálna otázka „Kupujú ľudia verne jednu značku, alebo repertoár značiek?“ a jej zdieľaná odpoveď
 // (ebbie.sk/a/1047e3d5-…, 11. 10. 2026). Snímky obrazovky: posts/2026-10-remotion-ebbie-repertoar/capture.mjs.
+// Ďalšie otázky: výrez screenshotu chatu s tou istou odpoveďou (chat-followups.png, 11. 10. 2026).
 // Farebné pásy vysvetľujú, čo sa práve deje na obrazovke. 4:5, 18 s.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
@@ -11,18 +12,17 @@ const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const inOut = { ...clamp, easing: Easing.inOut(Easing.cubic) };
 const K = 1.5; // snímka má 1,5× CSS px stránky (viewport 720 px = plátno 1080 px)
 
-// Posun odpovede v CSS px stránky: úvod, hranice poznania, Verdikt a Zdroje, veta pre marketéra, späť hore.
+// Posun odpovede v CSS px stránky: úvod, potom Verdikt a Zdroje.
 const SCROLL: [number[], number[]] = [
-  [96, 170, 180, 205, 300, 308, 330, 420, 445],
-  [0, 170, 170, 1270, 1670, 1670, 1380, 1380, 0],
+  [96, 170, 180, 205, 318],
+  [0, 170, 170, 1450, 1670],
 ];
-// Riadky vety „Pre marketéra to znamená … navyšovaním vernosti“ (zmerané na stránke odpovede).
-const MARK = [[100, 1484, 663], [16, 1515, 629], [16, 1546, 648], [16, 1577, 695], [16, 1608, 192]];
 
 const BANDS = [
-  { n: 1, tone: "yellow", from: 14, to: 172, r: -2, title: "Nájde relevantný výskum k vašej téme", text: "Napíšte vlastnú otázku alebo vyberte z pripravených tém." },
-  { n: 2, tone: "teal", from: 200, to: 304, r: 2, title: "Posúdi, aký silný je dôkaz", text: "Typ štúdie, nezávislé overenie aj hranice platnosti." },
-  { n: 3, tone: "red", from: 322, to: 414, r: -2, title: "Postaví argumentáciu pre vedenie či klienta", text: "Oddelí podložené jadro od hypotézy." },
+  { n: 1, tone: "yellow", from: 8, to: 80, r: -2, title: "Napíšte alebo vyberte otázku z kategórie", text: "" },
+  { n: 2, tone: "teal", from: 100, to: 186, r: 2, title: "Ebbie nájde relevantný výskum k vašej téme", text: "a zostaví odpoveď." },
+  { n: 3, tone: "red", from: 210, to: 322, r: -2, title: "Posúďte, aký silný je dôkaz", text: "a ktoré zdroje sa téme venujú podrobnejšie." },
+  { n: 4, tone: "yellow", from: 340, to: 424, r: 2, title: "Zobrazí vám ďalšie otázky", text: "" },
 ] as const;
 
 const Band = ({ b }: { b: (typeof BANDS)[number] }) => {
@@ -40,7 +40,7 @@ const Band = ({ b }: { b: (typeof BANDS)[number] }) => {
       <span className="e-band__n">{b.n}</span>
       <div>
         <h2 className="e-band__title">{b.title}</h2>
-        <p className="e-band__text">{b.text}</p>
+        {b.text && <p className="e-band__text">{b.text}</p>}
       </div>
     </div>
   );
@@ -62,7 +62,8 @@ export const EbbieRepertoar = () => {
 
   // Scéna 2: odpoveď.
   const y = interpolate(frame, SCROLL[0], SCROLL[1], inOut);
-  const markT = interpolate(frame, [338, 392], [0, MARK.length], clamp);
+  const chat = interpolate(frame, [322, 334], [0, 1], clamp);
+  const chatY = interpolate(frame, [322, 420], [-420, -480], inOut);
 
   // Záver.
   const end = interpolate(frame, [432, 450], [100, 0], { ...clamp, easing: Easing.out(Easing.exp) });
@@ -73,14 +74,13 @@ export const EbbieRepertoar = () => {
     <AbsoluteFill className="slide slide--portrait ebbie">
       <div className="screen" style={{ transform: `translateY(${-y * K}px)` }}>
         <Img src={staticFile("media/ebbie-repertoar/answer-full.png")} />
-        {MARK.map(([x, top, right], i) => (
-          <div
-            key={i}
-            className="mark"
-            style={{ left: (x - 4) * K, top: (top - 4) * K, width: (right - x + 8) * K, transform: `scaleX(${Math.min(1, Math.max(0, markT - i))})` }}
-          />
-        ))}
       </div>
+
+      {chat > 0 && (
+        <AbsoluteFill style={{ opacity: chat, background: "var(--paper)" }}>
+          <Img className="chat" src={staticFile("media/ebbie-repertoar/chat-followups.png")} style={{ transform: `translateY(${chatY}px)` }} />
+        </AbsoluteFill>
+      )}
 
       {startOut > 0 && (
         <AbsoluteFill style={{ opacity: startOut }}>
@@ -96,7 +96,6 @@ export const EbbieRepertoar = () => {
 
       <div className="end" style={{ transform: `translateY(${end}%)` }}>
         <p className="end__title" style={{ opacity: endText, transform: `translateY(${(1 - endText) * 40}px)` }}>Vyskúšať si ju môže každý.</p>
-        <p className="end__text" style={{ opacity: endText }}>Členovia FAME majú neobmedzený prístup.</p>
         <span className="f-url f-url--primary end__url" style={{ opacity: frame >= 470 ? 1 : 0, transform: `scale(${interpolate(url, [0, 1], [1.3, 1])}) rotate(${interpolate(url, [0, 1], [6, -2])}deg)` }}>ebbie.sk</span>
       </div>
     </AbsoluteFill>
