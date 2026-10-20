@@ -1,6 +1,6 @@
 // Pozvánka na podujatie „Funguje brand purpose?“ (20. 11. 2026). Texty doslovne zo stránky
 // fameworks.sk/eventy/funguje-brand-purpose (20. 10. 2026); fotky rečníkov dodal zadávateľ (system/media/speakers).
-// Úvod, štyria rečníci, záver s miestom, vstupným a odkazom. 4:5, 21 s.
+// Úvod a záver: všetky prvky naraz, každý z inej strany. Úvod, štyria rečníci, záver s miestom, vstupným a odkazom. 4:5, 21 s.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "../../system/tokens.css";
@@ -38,11 +38,11 @@ function useRise(start: number) {
   return { opacity: t, transform: `translateY(${(1 - t) * 36}px)` };
 }
 
-// Rýchly prílet z danej strany (dx, dy v % vlastnej veľkosti) s dorovnaním náklonu.
+// Prílet z danej strany (dx, dy v % vlastnej veľkosti) s dorovnaním náklonu.
 function useFly(start: number, dx: number, dy: number, rot: number) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const p = spring({ frame: frame - start, fps, config: { damping: 14, stiffness: 260, mass: 0.6 } });
+  const p = spring({ frame: frame - start, fps, config: { damping: 13, stiffness: 140, mass: 0.8 } });
   return {
     opacity: frame >= start ? 1 : 0,
     transform: `translate(${(1 - p) * dx}%, ${(1 - p) * dy}%) rotate(${interpolate(p, [0, 1], [rot * 4, rot])}deg)`,
@@ -62,10 +62,10 @@ const Logo = () => (
 );
 
 const Intro = () => {
-  const a = useFly(2, -130, 0, -2);
-  const b = useFly(7, 130, 0, 2);
-  const c = useFly(12, 0, 400, -1.5);
-  const lead = useFly(17, 0, 300, 0);
+  const a = useFly(4, -130, 0, -2);
+  const b = useFly(4, 130, 0, 2);
+  const c = useFly(4, 0, 400, -1.5);
+  const lead = useFly(4, 0, 300, 0);
   return (
     <AbsoluteFill className="inv">
       <Logo />
@@ -110,11 +110,11 @@ const Speaker = ({ i }: { i: number }) => {
 const Outro = () => {
   const frame = useCurrentFrame();
   const enter = useEnter(END);
-  const date = useFly(END + 4, -130, 0, -2);
+  const date = useFly(END + 8, -130, 0, -2);
   const place = useFly(END + 8, 130, 0, 2);
-  const price = useFly(END + 12, 0, 300, 0);
-  const title = useFly(END + 16, -130, 0, 0);
-  const url = useFly(END + 20, 130, 0, -2);
+  const price = useFly(END + 8, 0, 300, 0);
+  const title = useFly(END + 8, -130, 0, 0);
+  const url = useFly(END + 8, 130, 0, -2);
   if (frame < END) return null;
   return (
     <AbsoluteFill className="inv" style={enter}>
