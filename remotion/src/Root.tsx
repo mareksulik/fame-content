@@ -1,4 +1,5 @@
 import { Composition } from "remotion";
+import { BrandPurposeInvite, INVITE_FRAMES } from "./BrandPurposeInvite";
 import { EbbieRepertoar } from "./EbbieRepertoar";
 import { EvidenceBased } from "./EvidenceBased";
 import { PrincipleVideo } from "./PrincipleVideo";
@@ -7,6 +8,7 @@ import { PRINCIPLES } from "./principles";
 // 4:5 pre feed LinkedInu a Instagramu, 30 fps.
 export const Root = () => (
   <>
+    <Composition id="BrandPurposeInvite" component={BrandPurposeInvite} width={1080} height={1350} fps={30} durationInFrames={INVITE_FRAMES} />
     <Composition id="EbbieRepertoar" component={EbbieRepertoar} width={1080} height={1350} fps={30} durationInFrames={660} />
     <Composition id="EvidenceBased" component={EvidenceBased} width={1080} height={1350} fps={30} durationInFrames={255} />
     {PRINCIPLES.map((p) => (
