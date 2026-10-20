@@ -38,6 +38,17 @@ function useRise(start: number) {
   return { opacity: t, transform: `translateY(${(1 - t) * 36}px)` };
 }
 
+// Rýchly prílet z danej strany (dx, dy v % vlastnej veľkosti) s dorovnaním náklonu.
+function useFly(start: number, dx: number, dy: number, rot: number) {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const p = spring({ frame: frame - start, fps, config: { damping: 14, stiffness: 260, mass: 0.6 } });
+  return {
+    opacity: frame >= start ? 1 : 0,
+    transform: `translate(${(1 - p) * dx}%, ${(1 - p) * dy}%) rotate(${interpolate(p, [0, 1], [rot * 4, rot])}deg)`,
+  };
+}
+
 // Nová scéna prekryje predchádzajúcu posunom sprava.
 function useEnter(start: number) {
   const t = interpolate(useCurrentFrame() - start, [0, 14], [1, 0], { ...clamp, easing: Easing.out(Easing.cubic) });
@@ -51,10 +62,10 @@ const Logo = () => (
 );
 
 const Intro = () => {
-  const a = useSlap(4, -10, -2);
-  const b = useSlap(16, 10, 2);
-  const c = useSlap(32, -8, -1.5);
-  const lead = useRise(44);
+  const a = useFly(2, -130, 0, -2);
+  const b = useFly(7, 130, 0, 2);
+  const c = useFly(12, 0, 400, -1.5);
+  const lead = useFly(17, 0, 300, 0);
   return (
     <AbsoluteFill className="inv">
       <Logo />
@@ -98,27 +109,25 @@ const Speaker = ({ i }: { i: number }) => {
 
 const Outro = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
   const enter = useEnter(END);
-  const fly = (start: number, dir: number, rot: number) => {
-    const p = spring({ frame: frame - start, fps, config: { damping: 13, stiffness: 140, mass: 0.8 } });
-    return { transform: `translateX(${(1 - p) * 120 * dir}%) rotate(${interpolate(p, [0, 1], [dir * 8, rot])}deg)` };
-  };
-  const price = useRise(END + 34);
-  const url = useSlap(END + 50, 8, -2, 1.5);
+  const date = useFly(END + 4, -130, 0, -2);
+  const place = useFly(END + 8, 130, 0, 2);
+  const price = useFly(END + 12, 0, 300, 0);
+  const title = useFly(END + 16, -130, 0, 0);
+  const url = useFly(END + 20, 130, 0, -2);
   if (frame < END) return null;
   return (
     <AbsoluteFill className="inv" style={enter}>
       <Logo />
       <div className="inv__facts">
-        <div className="inv__fact f-tile--yellow" style={fly(END + 10, -1, -2)}>20. 11. 2026, 18:00</div>
-        <div className="inv__fact inv__fact--2 f-tile--teal" style={fly(END + 20, 1, 2)}>Ďatelinová 5530/6, Bratislava</div>
+        <div className="inv__fact f-tile--yellow" style={date}>20. 11. 2026, 18:00</div>
+        <div className="inv__fact inv__fact--2 f-tile--teal" style={place}>Ďatelinová 5530/6, Bratislava</div>
       </div>
       <div className="inv__price" style={price}>
         <p>Členovia FAME 30 € so zľavovým kódom pre členov, nečlenovia 50 €.</p>
       </div>
       <div className="inv__cta">
-        <p className="inv__cta-title">Kúpiť lístky</p>
+        <p className="inv__cta-title" style={title}>Kúpiť lístky</p>
         <span className="f-url f-url--primary inv__url" style={url}>fameworks.sk/eventy/funguje-brand-purpose</span>
       </div>
     </AbsoluteFill>
