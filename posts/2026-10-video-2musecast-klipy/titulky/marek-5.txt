@@ -1,0 +1,14 @@
+Je to Ebbie, je to taká naša AI asistentka, evidence-based marketing asistentka.
+|Je to v podstate chatbot, ktorý ti odpovedá na tvoje marketingové otázky,
+|ale nečerpá pritom z nejakých svojich vedomostí, ktoré má chatbot ako ChatGPT,
+|alebo z toho, že by hľadal informácie na internete, kde sa ťažko posudzuje kvalita tej informácie.
+|Čerpá z ručne vytvorenej internej databázy zdrojov, vedeckých článkov, učebníc a štúdií, ktoré sme my s Romanom ručne zozbierali.
+|A Ebbie čerpá informácie iba z nich.
+|Čiže odpadá taký ten klasický problém, ktorý máme s chatbotmi:
+|dá ti nejakú presvedčivú odpoveď, ale keď sa ho spýtaš na zdroj tej odpovede, tak buď nevie povedať,
+|alebo to je nejaký pochybný článok, ktorý napísal niekto niekde na internete,
+|a ty nemáš absolútne žiadnu záruku, že to je kvalitná informácia, že to je overený evidence-based zdroj.
+|Čiže preto sme k tomu pristúpili takto, že sme ručne zozbierali tie vedecké práce a Ebbie vyberá odpovede iba z nich.
+|Čiže nejde mimo toho.
+|A keď sa jej opýtam niečo, čo nenájde v tých zdrojoch, tak dostanem akú odpoveď?
+|Tak ti povie, že priamo na toto odpoveď nemá, ale má odpoveď na nejaké príbuzné témy, čiže nejako to zabalí.
