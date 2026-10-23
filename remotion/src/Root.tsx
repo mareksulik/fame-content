@@ -26,6 +26,18 @@ export const Root = () => (
         durationInFrames={Math.round((KLIPY[id].duration + OUTRO_S) * FPS)}
       />
     ))}
+    {(Object.keys(KLIPY) as (keyof typeof KLIPY)[]).map((id) => (
+      <Composition
+        key={`full-${id}`}
+        id={`KlipFull-${id}`}
+        component={PodcastClip}
+        defaultProps={{ id, variant: "full" as const }}
+        width={1080}
+        height={1350}
+        fps={FPS}
+        durationInFrames={Math.round((KLIPY[id].duration + OUTRO_S) * FPS)}
+      />
+    ))}
     {PRINCIPLES.map((p) => (
       <Composition
         key={p.n}

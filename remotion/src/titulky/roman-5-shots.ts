@@ -1,0 +1,2 @@
+// Vygenerované: node scripts/detect-shots.ts roman-5 (strihy kamery a typ záberu, pozri komentár v skripte)
+export const shots: { from: number; type: "A" | "B" | "?" }[] = [{"from":0,"type":"A"},{"from":0.233,"type":"B"},{"from":2.235,"type":"A"},{"from":3.737,"type":"B"},{"from":14.247,"type":"A"},{"from":16.216,"type":"B"},{"from":18.218,"type":"A"},{"from":19.719,"type":"B"},{"from":21.221,"type":"A"},{"from":32.732,"type":"B"},{"from":34.234,"type":"A"},{"from":44.744,"type":"B"},{"from":48.248,"type":"A"},{"from":49.716,"type":"B"}];

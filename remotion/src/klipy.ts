@@ -12,6 +12,7 @@ import * as roman2 from "./titulky/roman-2.ts";
 import * as roman3 from "./titulky/roman-3.ts";
 import * as roman4 from "./titulky/roman-4.ts";
 import * as roman5 from "./titulky/roman-5.ts";
+import * as roman6 from "./titulky/roman-6.ts";
 
 const MAREK = { speaker: "Marek Šulik", role: "stratég, Birne · spoluzakladateľ FAME" };
 const ROMAN = { speaker: "Roman Jazudek", role: "Slovenská sporiteľňa · spoluzakladateľ FAME" };
@@ -103,10 +104,11 @@ export const KLIPY = {
   },
   "marek-2": { src: "clips/marek-2.mp4", duration: 39.97, title: "Zlé dáta sú ako žiadne dáta", ...MAREK, ...marek2 },
   "marek-3": { src: "clips/marek-3.mp4", duration: 60.62, title: "How Brands Grow nie je len jedna knižka", ...MAREK, ...marek3, speakerFrom: 0.1 },
-  "marek-4": { src: "clips/marek-4.mp4", duration: 90.92, title: "Mentálna a fyzická dostupnosť sa nedajú oddeliť", ...MAREK, ...marek4 },
+  "marek-4": { src: "clips/marek-4.mp4", duration: 39.9, title: "Len mentálna dostupnosť nestačí", ...MAREK, ...marek4 },
   "marek-5": { src: "clips/marek-5.mp4", duration: 87.75, title: "Čo je Ebbie a z čoho odpovedá", ...MAREK, ...marek5 },
   "roman-2": { src: "clips/roman-2.mp4", duration: 37.0, title: "Zákon, alebo zákonitosť?", ...ROMAN, ...roman2 },
   "roman-3": { src: "clips/roman-3.mp4", duration: 77.57, title: "Na Slovensku to vraj funguje inak", ...ROMAN, ...roman3 },
   "roman-4": { src: "clips/roman-4.mp4", duration: 87.42, title: "Marketing patrí k\u00a0rozhodovaciemu stolu", ...ROMAN, ...roman4 },
   "roman-5": { src: "clips/roman-5.mp4", duration: 63.83, title: "Podľa čoho poznáme, že sa FAME podarilo", ...ROMAN, ...roman5 },
+  "roman-6": { src: "clips/roman-6.mp4", duration: 50.95, title: "Mentálna a fyzická dostupnosť sa nedajú oddeliť", ...ROMAN, ...roman6 },
 } satisfies Record<string, Klip>;
