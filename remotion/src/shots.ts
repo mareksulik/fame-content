@@ -25,38 +25,52 @@ const LEFT = 0;
 const RIGHT = -1320;
 const CENTER = -660;
 const GUEST = { A: RIGHT, B: LEFT, "?": CENTER };
-const WOMAN = LEFT; // moderátorka, ktorá kladie otázky, sedí v zábere A vľavo
+const WOMAN = LEFT; // moderátorka sedí v zábere A vľavo
+const HOST = { A: LEFT, B: RIGHT, "?": CENTER }; // moderátor, ktorého ukazuje kamera
 const HOST_MIN_S = 0.8; // kratšia replika moderátora záber nemení
+const MIN_SEG_S = 0.5; // kratší úsek výrezu sa zlúči s predchádzajúcim
 
 // Úsek výrezu: x = vodorovný posun; src = začiatok vloženého záberu moderátorky v klipe (sekundy), ak ju aktuálny
 // záber neukazuje. Vložený záber je bez zvuku, zvuk rozhovoru ide ďalej z hlavného záberu.
 export type Segment = { from: number; to: number; x: number; src?: number };
 
+// Repliky moderátora dlhšie ako HOST_MIN_S: [začiatok, koniec] reči bez rezervy.
 function hostSpans(words: Word[]): [number, number][] {
   const spans: [number, number][] = [];
   let start: Word | null = null;
   words.forEach((w, i) => {
     if (w.host && !start) start = w;
     if (w.host && !words[i + 1]?.host && start) {
-      if (w.t1 - start.t0 >= HOST_MIN_S) spans.push([start.t0 - 0.15, w.t1 + 0.25]);
+      if (w.t1 - start.t0 >= HOST_MIN_S) spans.push([start.t0, w.t1]);
       start = null;
     }
   });
   return spans;
 }
 
-// Strih na rečníka bez pohybu výrezu v zábere (Marekova poznámka 2026-10-23):
-// - záber stola rečníka (guestShot: Marek A, Roman B): výrez na rečníkovi; počas otázky moderátorky ostrý strih na ňu;
-// - reakčný záber druhého stola: vždy moderátorka; v zábere B nie je, tak sa vloží jej záber z inej chvíle klipu A,
-//   keď nehovorí (najbližší pred, inak po). Bez takého záberu ostane výrez na rečníkovi.
+// Strih na rečníka bez pohybu výrezu v zábere (Marekove poznámky 2026-10-23 a 2026-10-27):
+// - záber stola rečníka (guestShot: Marek A, Roman B): výrez na rečníkovi;
+// - otázka moderátora: ten moderátor, ktorého ukazuje kamera (A moderátorka vľavo, B moderátor vpravo);
+// - reakčný záber druhého stola bez otázky: moderátorka; v zábere B nie je, tak sa vloží jej záber z inej chvíle
+//   klipu A, keď nehovorí (najbližší pred, inak po). Bez takého záberu ostane výrez na rečníkovi.
 export function cropPlan(shots: Shot[], words: Word[], end: number, guestShot: "A" | "B"): Segment[] {
   const spans = hostSpans(words);
-  const inHost = (t: number) => spans.some(([a, b]) => t >= a && t <= b);
   const shotAt = (t: number) => {
     let s = shots.length - 1;
     while (s > 0 && shots[s].from > t) s--;
     return s;
   };
+  // Replika s rezervou 0,15 s pred a 0,25 s po; rezerva nepresahuje do iného záberu kamery.
+  const inHost = (t: number, s: number) =>
+    spans.some(([a, b]) => (t >= a && t <= b) || (t >= a - 0.15 && t < a && shotAt(a) === s) || (t > b && t <= b + 0.25 && shotAt(b) === s));
+
+  // Záber, v ktorom moderátor naozaj hovorí aspoň HOST_MIN_S.
+  const hostShots = new Set(
+    shots
+      .map((s, i) => [i, s.from, shots[i + 1]?.from ?? end] as const)
+      .filter(([, a, b]) => spans.reduce((n, [x, y]) => n + Math.max(0, Math.min(y, b) - Math.max(x, a)), 0) >= HOST_MIN_S)
+      .map(([i]) => i),
+  );
 
   // Rozhodnutie pre krátky krok času, potom zlúčenie rovnakých krokov do úsekov.
   const STEP = 1 / 30;
@@ -67,14 +81,29 @@ export function cropPlan(shots: Shot[], words: Word[], end: number, guestShot: "
     let x = CENTER;
     let woman = false;
     if (type !== "?") {
-      const wantWoman = type !== guestShot || inHost(t);
-      if (!wantWoman) x = GUEST[type];
+      // Reakčný záber, v ktorom moderátor kladie otázku, ukazuje toho moderátora celý (kamera je už na ňom).
+      if (inHost(t, s) || (type !== guestShot && hostShots.has(s))) x = HOST[type];
+      else if (type === guestShot) x = GUEST[type];
       else if (type === "A") x = WOMAN;
-      else woman = true; // potrebujeme vložený záber
+      else woman = true; // reakcia v zábere B: potrebujeme vložený záber moderátorky
     }
     const last = raw[raw.length - 1];
     if (last && last.x === x && last.woman === woman && (!woman || last.shot === s)) last.to = t + STEP;
     else raw.push({ from: t, to: t + STEP, x, woman, shot: s });
+  }
+
+  // Úsek kratší ako MIN_SEG_S (okraj repliky presahujúci do susedného záberu) by blikal: pripojí sa
+  // k predchádzajúcemu úseku celý, vrátane vloženého záberu.
+  for (let i = raw.length - 1; i > 0; i--) {
+    if (raw[i].to - raw[i].from >= MIN_SEG_S) continue;
+    raw[i - 1].to = raw[i].to;
+    raw.splice(i, 1);
+  }
+  for (let i = raw.length - 1; i > 0; i--) {
+    const [p, c] = [raw[i - 1], raw[i]];
+    if (p.x !== c.x || p.woman !== c.woman || (p.woman && p.shot !== c.shot)) continue;
+    p.to = c.to;
+    raw.splice(i, 1);
   }
 
   // Úseky klipu A, kde moderátorka nehovorí: zdroj vložených záberov.

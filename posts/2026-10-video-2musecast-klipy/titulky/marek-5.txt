@@ -10,5 +10,5 @@ Je to Ebbie, je to taká naša AI asistentka, evidence-based marketing asistentk
 |a ty nemáš absolútne žiadnu záruku, že to je kvalitná informácia, že to je overený evidence-based zdroj.
 |Čiže preto sme k tomu pristúpili takto, že sme ručne zozbierali tie vedecké práce a Ebbie vyberá odpovede iba z nich.
 |Čiže nejde mimo toho.
-|A keď sa jej opýtam niečo, čo nenájde v tých zdrojoch, tak dostanem akú odpoveď?
+|{A keď sa jej opýtam niečo, čo nenájde v tých zdrojoch, tak dostanem akú odpoveď?}
 |Tak ti povie, že priamo na toto odpoveď nemá, ale má odpoveď na nejaké príbuzné témy, čiže nejako to zabalí.

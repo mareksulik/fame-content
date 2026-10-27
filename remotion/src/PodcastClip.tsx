@@ -11,6 +11,8 @@ import { KLIPY, type Word } from "./klipy";
 import { SHOTS, cropPlan } from "./shots";
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+// Pevná medzera za jednopísmenovým slovom, aby neostalo na konci riadku nadpisu (DESIGN.md).
+const nbsp = (s: string) => s.replace(/(?<=^|\s)([aikosuvzAIKOSUVZ]) /g, "$1 ");
 export const FPS = 30;
 export const OUTRO_S = 3.5;
 
@@ -116,22 +118,26 @@ export const PodcastClip = ({ id, variant = "frame" }: { id: keyof typeof KLIPY;
         <div style={{ transform: away.transform }}>
           {titleOut < 1 && (
             <div className="f-tile f-tile--yellow pc-title" style={{ opacity: title.opacity, transform: `translateY(${-160 * titleOut}%) ${title.transform}` }}>
-              <h1 className="f-tile__title">{k.title}</h1>
+              <h1 className="f-tile__title">{nbsp(k.title)}</h1>
             </div>
           )}
           {full && frame >= zs + 12 && (
             <div className="f-tile f-tile--yellow pc-corner" style={corner}>
-              <h1 className="f-tile__title">{k.title}</h1>
+              <h1 className="f-tile__title">{nbsp(k.title)}</h1>
             </div>
           )}
           <div className="f-shot pc-shot" style={{ ...shotBox, transform: `translateX(${shotIn}%) rotate(${lerp(2, 0)}deg)` }}>
             <div className="pc-shot__video" style={full ? { width: "100%", height: "100%" } : undefined}>
               <OffthreadVideo src={staticFile(k.src)} endAt={end} />
-              {plan.filter((s) => s.src !== undefined).map((s) => (
-                <Sequence key={s.from} from={Math.round(s.from * FPS)} durationInFrames={Math.max(1, Math.round((s.to - s.from) * FPS))} layout="none">
-                  <OffthreadVideo className="pc-cutaway" src={staticFile(k.src)} trimBefore={Math.round(s.src! * FPS)} muted />
-                </Sequence>
-              ))}
+              {/* Vložené zábery až po zväčšení: v malom ráme ostáva pôvodný strih. */}
+              {plan.filter((s) => s.src !== undefined && s.to > ZOOM_S).map((s) => {
+                const a = Math.max(s.from, ZOOM_S);
+                return (
+                  <Sequence key={s.from} from={Math.round(a * FPS)} durationInFrames={Math.max(1, Math.round((s.to - a) * FPS))} layout="none">
+                    <OffthreadVideo className="pc-cutaway" src={staticFile(k.src)} trimBefore={Math.round((s.src! + a - s.from) * FPS)} muted />
+                  </Sequence>
+                );
+              })}
             </div>
           </div>
           {frame >= tagFrom * FPS && tagAway.t < 1 && (
