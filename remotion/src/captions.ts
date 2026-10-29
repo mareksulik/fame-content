@@ -5,15 +5,16 @@ import type { Word } from "./klipy";
 export const MAX_CHARS = 30; // cieľová dĺžka riadku
 const HARD_MAX = 34; // pri 50 px Bricolage 700 sa ešte zmestí do 936 px
 
-const len = (ws: Word[]) => ws.reduce((n, w) => n + w.w.length, 0) + Math.max(ws.length - 1, 0);
+type HasText = { w: string };
+const len = (ws: HasText[]) => ws.reduce((n, w) => n + w.w.length, 0) + Math.max(ws.length - 1, 0);
 
 // Jednopísmenová predložka alebo spojka nesmie ostať na konci riadku (pravidlo &nbsp; v DESIGN.md).
 const SHORT = new Set(["a", "i", "k", "o", "s", "u", "v", "z", "A", "I", "K", "O", "S", "U", "V", "Z"]);
 
 // Greedy zalomenie s limitom width.
-function wrap(ws: Word[], width: number): Word[][] {
-  const lines: Word[][] = [];
-  let line: Word[] = [];
+function wrap<T extends HasText>(ws: T[], width: number): T[][] {
+  const lines: T[][] = [];
+  let line: T[] = [];
   for (const w of ws) {
     if (line.length && len([...line, w]) > width) {
       const carry = line.length > 1 && SHORT.has(line[line.length - 1].w) ? [line.pop()!] : [];
@@ -27,13 +28,13 @@ function wrap(ws: Word[], width: number): Word[][] {
 }
 
 // Najmenší počet riadkov, potom najmenšia šírka, pri ktorej sa úsek do toľkých riadkov zmestí.
-function balance(ws: Word[]): Word[][] {
-  for (let n = Math.ceil(len(ws) / HARD_MAX); ; n++) {
-    for (let width = Math.ceil(len(ws) / n); width <= HARD_MAX; width++) {
+export function balance<T extends HasText>(ws: T[], hardMax = HARD_MAX): T[][] {
+  for (let n = Math.ceil(len(ws) / hardMax); ; n++) {
+    for (let width = Math.ceil(len(ws) / n); width <= hardMax; width++) {
       const lines = wrap(ws, width);
       if (lines.length <= n) return lines;
     }
-    if (n > ws.length) return wrap(ws, HARD_MAX);
+    if (n > ws.length) return wrap(ws, hardMax);
   }
 }
 

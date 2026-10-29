@@ -1,0 +1,38 @@
+FAME OZ BIKOSS Konferencia - Titulky
+=====================================
+
+Formát: [ZAČIATOK - KONIEC] Text
+Slová medzi *hviezdičkami* = oranžovo zvýraznené
+>>> HEADLINE = otázka zobrazená hore (nie titulok)
+
+
+ÚVOD (0:00 - 0:14)
+-------------------
+[0:00.0 - 0:03.0] Čaute, som *Marek Šulík*,
+[0:03.0 - 0:05.8] *spoluzakladateľ* marketingového štúdia BIRNE a podpredseda OZ FAME.
+[0:06.6 - 0:10.0] Ja som *Patrícia Kollár*, pracujem v prieskumnej agentúre 2MUSE.
+[0:10.0 - 0:13.8] Tiež som *spoluzakladateľka* OZ FAME.
+
+
+EVIDENCE-BASED PRÍSTUPY (0:14 - 0:42)
+--------------------------------------
+>>> HEADLINE [0:14.0 - 0:19.0]: Aký evidence-based prístup ste si všimli na BIKOSSe?
+
+[0:15.2 - 0:20.0] Páčila sa mi myšlienka zakladateľa *Wikipédie* Jimmyho Walesa.
+[0:20.0 - 0:24.0] Hovoril, že bez *dôvery* by Wikipédia neexistovala.
+[0:24.0 - 0:28.0] Aj *marketing* bez dôvery nemôže existovať.
+[0:29.2 - 0:34.0] Vo väčšine *prednášok* sa kombinujú nielen dáta,
+[0:34.0 - 0:40.0] ale aj *zákonitosti*, ktoré fungujú a sú podporané reálnymi číslami.
+[0:40.1 - 0:42.0] Tak ako to ukázali napríklad BMW či *Mercedes*.
+
+
+ČO DOKÁŽEME PRE OZ FAME (0:42 - 1:03)
+---------------------------------------
+>>> HEADLINE [0:42.0 - 0:47.0]: Čo dokážete pre OZ FAME?
+
+[0:42.5 - 0:46.5] Že sa určite *oplatí* prísť, lebo sme zábavní a múdri.
+[0:47.0 - 0:50.6] Moje očakávanie je, že sa nám podarí vybudovať tú *dôveru*,
+[0:50.6 - 0:53.4] o ktorej som hovoril,
+[0:53.7 - 0:57.1] a že stále viac ľudí nebude *marketing* hodnotiť podľa názorov,
+[0:57.1 - 1:00.3] ale podľa *faktov*.
+[1:00.6 - 1:02.0] A hlavne podľa toho, čo *funguje*.

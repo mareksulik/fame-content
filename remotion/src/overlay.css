@@ -1,0 +1,40 @@
+/* Iba poloha prvkov grafiky na hotovom videu; farby, písma, .f-tile a .f-url sú z dizajnového systému.
+   Zvislé polohy podľa formátu sú v LAYOUT v OverlayClip.tsx. */
+
+body { display: block; padding: 0; gap: 0; background: none; }
+
+.ov { background: var(--ink); overflow: hidden; }
+.ov-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Webové logo (priehľadné), orezané na samolepky FAME: prvých 376 z 529 px šírky súboru. */
+.ov-logo { position: absolute; left: 56px; height: 128px; width: 259px; overflow: hidden; z-index: 3; transform-origin: left top; }
+.ov-logo img { height: 128px; width: auto; max-width: none; display: block; }
+
+.ov-head { position: absolute; left: -40px; width: 1060px; padding: 32px 56px 36px 112px; z-index: 2; }
+.ov-head .f-tile__title { font-size: 56px; font-weight: 800; line-height: 1.06; letter-spacing: -0.025em; }
+
+.ov-tag { position: absolute; z-index: 3; display: flex; flex-direction: column; gap: 2px; }
+.ov-tag strong { font: 800 40px/1.05 var(--sans); letter-spacing: -0.02em; }
+.ov-tag span { font: 600 var(--fs-meta) / var(--lh-meta) var(--sans); }
+.ov-tag--left { left: -24px; padding: 20px 44px 24px 96px; }
+.ov-tag--right { right: -24px; padding: 20px 96px 24px 44px; text-align: right; }
+
+/* Titulky priamo na zábere: biele s obrysom v --ink (obrys, nie tieň); zvýraznené slovo na žltom. */
+.ov-captions { position: absolute; left: var(--pad); right: var(--pad); z-index: 4; }
+.ov-captions p { margin: 0 0 4px; font: 700 48px/1.16 var(--sans); letter-spacing: -0.015em; color: var(--paper); -webkit-text-stroke: 10px var(--ink); paint-order: stroke fill; }
+.ov-w { padding: 0 6px 4px; margin: 0 -6px; }
+.ov-w + .ov-w { margin-left: calc(-6px + 0.26em); }
+.ov-w--em { background: var(--yellow); color: var(--ink); -webkit-text-stroke: 0; }
+
+.ov-outro { background: var(--paper); z-index: 5; }
+.ov-outro__logo { position: absolute; left: 56px; height: 152px; width: auto; }
+.ov-outro__tile {
+  position: absolute; left: -60px; width: 1100px; padding: 56px 120px 64px 132px;
+  font-weight: 800; line-height: 0.98; letter-spacing: -0.035em; font-family: var(--sans);
+}
+.ov-outro__url { position: absolute; left: var(--pad); padding: 22px 40px; font-size: 48px; z-index: 1; }
+.ov-outro__credit {
+  position: absolute; left: -80px; right: -80px; bottom: -200px; margin: 0;
+  padding: 56px 152px 0; background: var(--teal); color: var(--ink); transform: rotate(-2deg);
+  font: 700 40px/1.2 var(--sans); letter-spacing: -0.01em;
+}

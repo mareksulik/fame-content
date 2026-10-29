@@ -4,6 +4,8 @@ import { EbbieRepertoar } from "./EbbieRepertoar";
 import { EvidenceBased } from "./EvidenceBased";
 import { KLIPY } from "./klipy";
 import { FPS, OUTRO_S, PodcastClip } from "./PodcastClip";
+import { BIKOSS, type BikossFormat } from "./bikoss";
+import { OverlayClip, FPS as OV_FPS, OUTRO_S as OV_OUTRO } from "./OverlayClip";
 import { PrincipleVideo } from "./PrincipleVideo";
 import { PRINCIPLES } from "./principles";
 
@@ -36,6 +38,19 @@ export const Root = () => (
         height={1350}
         fps={FPS}
         durationInFrames={Math.round((KLIPY[id].duration + OUTRO_S) * FPS)}
+      />
+    ))}
+    {/* Rozhovor z BIKOSS, grafika na hotové formáty: render s --public-dir ../posts/2026-10-video-bikoss/public */}
+    {(Object.keys(BIKOSS.formats) as BikossFormat[]).map((format) => (
+      <Composition
+        key={format}
+        id={`Bikoss-${format}`}
+        component={OverlayClip}
+        defaultProps={{ format }}
+        width={BIKOSS.formats[format].width}
+        height={BIKOSS.formats[format].height}
+        fps={OV_FPS}
+        durationInFrames={Math.round((BIKOSS.duration + OV_OUTRO) * OV_FPS)}
       />
     ))}
     {PRINCIPLES.map((p) => (
