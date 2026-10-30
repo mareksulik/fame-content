@@ -1,0 +1,85 @@
+/* Zákony marketingu 01: double jeopardy vysvetlený na rulete. Iba rozloženie; farby, písmo a komponenty sú z dizajnového systému FAME.
+   Hlavička hore, naklonená dlaždica s pomenovaním scény, scéna 936 × 690, béžový blok s vetou vybieha za spodný okraj. */
+body { display: block; padding: 0; gap: 0; background: none; }
+
+.dj.slide { width: 1080px; padding: 0; overflow: hidden; background: var(--paper); }
+.dj--portrait.slide { height: 1350px; }
+.dj--reel.slide { height: 1920px; }
+
+.dj-header { position: absolute; left: var(--pad); right: var(--pad); top: var(--pad); margin: 0; z-index: 3; }
+
+/* Dlaždica s pomenovaním scény vybieha za ľavý okraj */
+.dj-tile {
+  position: absolute; left: -48px; top: 232px; z-index: 2;
+  max-width: 1000px; padding: 26px 64px 34px 120px;
+  background: var(--tone); color: var(--on-tone, var(--ink));
+  font: 800 64px/1.04 var(--sans); letter-spacing: -.025em; text-wrap: balance;
+  transform-origin: 30% 50%;
+}
+.dj-tile--hook { font-size: 76px; padding: 30px 72px 40px 120px; }
+
+.dj-stage { position: absolute; left: var(--pad); top: 440px; width: 936px; height: 690px; }
+.dj-layer, .dj-svg { position: absolute; inset: 0; }
+.dj-svg { width: 100%; height: 100%; overflow: visible; }
+
+/* Béžový blok s vetou scény */
+.dj-block { position: absolute; left: 0; right: 0; top: 1156px; bottom: 0; background: var(--beige); z-index: 1; }
+.dj-line { position: absolute; left: var(--pad); right: var(--pad); top: 36px; margin: 0; font: 36px/1.36 var(--serif); text-wrap: pretty; }
+
+/* Koleso: jediný okrúhly tvar (predmet, nie prvok rozhrania) */
+.dj-slice { stroke: var(--paper); stroke-linejoin: miter; }
+.dj-slice__name { font-family: var(--sans); font-weight: 800; letter-spacing: -.03em; }
+.dj-slice__share { font-family: var(--sans); font-weight: 600; }
+.dj-rim { fill: none; stroke: var(--ink); }
+.dj-hub { fill: var(--paper); stroke: var(--ink); stroke-width: 3; }
+.dj-pointer { fill: var(--ink); stroke: var(--paper); stroke-width: 4; stroke-linejoin: miter; }
+.dj-slot { fill: none; stroke: var(--line); stroke-width: 3; stroke-dasharray: 8 8; }
+.dj-ring { fill: none; stroke: var(--ink); stroke-width: 4; }
+.dj-chip { font-family: var(--sans); font-weight: 800; font-size: 40px; }
+
+/* Dav */
+.dj-empty { fill: none; stroke: var(--line); stroke-width: 2; }
+.dj-stat { position: absolute; display: flex; align-items: center; gap: 18px; transform: translateY(-50%); white-space: nowrap; }
+.dj-stat__mark { width: 40px; height: 40px; flex: none; }
+.dj-stat__value { font: 800 96px/1 var(--sans); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.dj-stat__label { font: 600 var(--fs-meta) / var(--lh-meta) var(--sans); color: var(--muted); }
+
+/* Tabuľka double jeopardy */
+.dj-th { position: absolute; top: 0; font: 600 var(--fs-meta) / var(--lh-meta) var(--sans); color: var(--muted); }
+.dj-row { position: absolute; left: 0; right: 0; height: 80px; display: flex; align-items: center; }
+.dj-row__chip { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font: 800 40px/1 var(--sans); }
+.dj-row__share { margin-left: 14px; font: 600 var(--fs-small) / 1 var(--sans); color: var(--muted); }
+.dj-bar { position: absolute; top: 12px; height: 56px; }
+.dj-row__value { position: absolute; font: 800 44px/1 var(--sans); letter-spacing: -.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dj-source { position: absolute; left: 0; right: 0; margin: 0; font: 600 var(--fs-small) / 1.35 var(--sans); color: var(--muted); }
+
+/* Prečo zriedkavejšie: stĺpce zákazníkov */
+.dj-head { font-family: var(--sans); font-weight: 600; font-size: 26px; fill: var(--muted); }
+.dj-mini { font-family: var(--sans); font-weight: 800; font-size: 28px; }
+.dj-band { position: absolute; left: -120px; right: -120px; height: 82px; background: var(--yellow); }
+.dj-calc { position: absolute; width: 468px; margin-left: -14px; text-align: center; white-space: nowrap; }
+.dj-calc__hits { font: 600 var(--fs-meta) / var(--lh-meta) var(--sans); color: var(--muted); }
+.dj-calc__formula { margin-top: 12px; font: 800 56px/1.1 var(--sans); letter-spacing: -.02em; white-space: nowrap; }
+.dj-calc__one { padding: 0 10px; }
+.dj-calc__note { margin-top: 6px; font: 600 var(--fs-meta) / var(--lh-meta) var(--sans); color: var(--muted); }
+
+/* Záver */
+.dj-end { z-index: 2; }
+.dj-end__bands { position: absolute; left: 0; right: 0; top: 292px; }
+.dj-end__band {
+  position: relative; margin: 0 -60px 36px; padding: 30px 132px 44px;
+  background: var(--tone); color: var(--on-tone, var(--ink));
+  font: 800 112px/.98 var(--sans); letter-spacing: -.04em; text-wrap: balance;
+}
+.dj-end__band--2 { margin-left: 48px; }
+.dj-end__block { position: absolute; left: 0; right: 0; top: 1000px; bottom: 0; background: var(--beige); }
+.dj-end__line { position: static; margin: 44px var(--pad) 0; }
+.dj-end__url { display: inline-flex; margin: 36px var(--pad) 0; transform-origin: left center; }
+
+/* 9:16 pre Reels: pod hornou lištou Instagramu, text nad spodným rozhraním (420 px) */
+.dj--reel .dj-header { top: 220px; }
+.dj--reel .dj-tile { top: 392px; }
+.dj--reel .dj-stage { top: 600px; }
+.dj--reel .dj-block { top: 1316px; }
+.dj--reel .dj-end__bands { top: 460px; }
+.dj--reel .dj-end__block { top: 1150px; }

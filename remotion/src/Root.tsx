@@ -7,6 +7,7 @@ import { FPS, OUTRO_S, PodcastClip } from "./PodcastClip";
 import { BIKOSS, type BikossFormat } from "./bikoss";
 import { OverlayClip, FPS as OV_FPS, OUTRO_S as OV_OUTRO } from "./OverlayClip";
 import { PrincipleVideo } from "./PrincipleVideo";
+import { DoubleJeopardy, T as DJ } from "./DoubleJeopardy";
 import { PRINCIPLES } from "./principles";
 
 // 4:5 pre feed LinkedInu a Instagramu, 30 fps.
@@ -65,5 +66,8 @@ export const Root = () => (
         durationInFrames={240}
       />
     ))}
+      {/* Zákony marketingu 01: double jeopardy vysvetlený na rulete, 4:5 a 9:16 */}
+    <Composition id="DoubleJeopardy-4x5" component={DoubleJeopardy} defaultProps={{ format: "portrait" as const }} width={1080} height={1350} fps={30} durationInFrames={DJ.total} />
+    <Composition id="DoubleJeopardy-9x16" component={DoubleJeopardy} defaultProps={{ format: "reel" as const }} width={1080} height={1920} fps={30} durationInFrames={DJ.total} />
   </>
 );
