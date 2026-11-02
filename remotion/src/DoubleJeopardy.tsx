@@ -16,7 +16,7 @@ const win = (f: number, a: number, b: number, d = 12) => interpolate(f, [a, a + 
 const slap = (f: number, start: number, fps: number) => spring({ frame: f - start, fps, config: { damping: 11, stiffness: 180, mass: 0.7 } });
 
 // ---- Časová os (snímky pri 30 fps) ----
-export const T = { rules: 96, one: 216, crowd: 432, penA: 582, penD: 672, freq: 792, mech: 942, mech2: 1077, mech3: 1227, why: 1392, grow: 1512, grow2: 1590, end: 1674, total: 1788 };
+export const T = { rules: 96, one: 216, crowd: 432, penA: 582, penD: 660, freq: 780, mech: 930, mech2: 1065, mech3: 1215, why: 1380, grow: 1500, grow2: 1608, end: 1692, total: 1800 };
 
 // ---- Simulácia ----
 const SHARES = [0.4, 0.3, 0.2, 0.1];
@@ -392,22 +392,44 @@ const Mechanism = () => {
   );
 };
 
-// ---- Rast: počítadlá sa menia spolu so šírkou výseku D ----
+// ---- Číslo, ktoré sa mení ako počítadlo: zmenené cifry sa pretočia nahor od poslednej, nezmenené stoja ----
+// (podľa Count zo Stageshow; tu počítané zo snímky, nie cez CSS prechod)
+const ROLL_EASE = Easing.bezier(0.3, 0.75, 0.1, 1);
+const STRIP = [..."01234567890123456789"];
+const Roll = ({ from, to, start }: { from: string; to: string; start: number }) => {
+  const f = useCurrentFrame();
+  let col = [...to].filter((c) => /\d/.test(c)).length;
+  return (
+    <span className="dj-roll">
+      {[...to].map((c, i) => {
+        if (!/\d/.test(c)) return <span key={i} className="dj-roll__char">{c}</span>;
+        const a = Number(from[i]), steps = (Number(c) - a + 10) % 10;
+        const pos = a + steps * prog(f, start + --col * 5, 27, ROLL_EASE);
+        return (
+          <span key={i} className="dj-roll__char dj-roll__digit">
+            <span className="dj-roll__strip" style={{ transform: `translateY(${-pos}em)` }}>{STRIP.map((n, k) => <span key={k}>{n}</span>)}</span>
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
+// ---- Rast: najprv sa rozšíri výsek D, potom sa pretočia počítadlá, ktoré od neho závisia ----
 const Grow = () => {
   const f = useCurrentFrame();
   const op = win(f, T.grow + 14, T.end + 6, 14);
   if (op <= 0) return null;
-  const w = prog(f, T.grow + 30, 50, inOut);
-  const rows: [string, string, string][] = [
-    ["Kupujúci D z\u00a01\u00a0000", num(Math.round(SIM.buyers[3] + (GROWN.buyers[3] - SIM.buyers[3]) * w)), num(SIM.buyers[3])],
-    ["Nákupy D na kupujúceho", dec(SIM.freq[3] + (GROWN.freq[3] - SIM.freq[3]) * w), dec(SIM.freq[3])],
+  const rows: [string, string, string, number][] = [
+    ["Kupujúci D z\u00a01\u00a0000", num(SIM.buyers[3]), num(GROWN.buyers[3]), T.grow + 44],
+    ["Nákupy D na kupujúceho", dec(SIM.freq[3]), dec(GROWN.freq[3]), T.grow + 60],
   ];
   return (
     <div className="dj-layer" style={{ opacity: op }}>
-      {rows.map(([label, value, was], i) => (
+      {rows.map(([label, was, now, start], i) => (
         <div key={label} className="dj-grow" style={{ top: 130 + i * 230 }}>
           <div className="dj-grow__label">{label}</div>
-          <div className="dj-grow__value"><span className="dj-stat__mark" style={{ background: COLORS[3] }} />{value}</div>
+          <div className="dj-grow__value"><span className="dj-stat__mark" style={{ background: COLORS[3] }} /><Roll from={was} to={now} start={start} /></div>
           <div className="dj-grow__label" style={{ opacity: prog(f, T.grow + 30, 14) }}>pri podiele {SHARES[3] * 100}&nbsp;%: {was}</div>
         </div>
       ))}
