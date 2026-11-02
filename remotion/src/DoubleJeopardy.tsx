@@ -1,6 +1,7 @@
-// Zákony marketingu 01: double jeopardy vysvetlený na rulete. Každý nákup je jedno zatočenie, šírka výseku je podiel značky.
+// Zákony marketingu 01: double jeopardy vysvetlený na rulete. Koleso je repertoár štyroch značiek, ktoré zákazník strieda;
+// šírka výseku je to, ako často siahne po ktorej (trhový podiel). Nie je to náhoda, ale zvyk, ktorý sa navonok správa ako pravdepodobnosť.
 // Simulácia 1 000 zákazníkov so seedom (zjednodušený NBD model: počet nákupov za rok = 1 + Poisson s gama rozdelenou mierou),
-// všetci točia rovnakým kolesom. Čísla v texte aj grafoch sa počítajú zo simulácie, nie sú vpísané ručne.
+// všetci majú rovnaký repertoár. Čísla v texte aj grafoch sa počítajú zo simulácie, nie sú vpísané ručne.
 // Každá scéna: naklonená dlaždica s pomenovaním, uprostred graf, dole béžový blok s vetou. 54 s, 4:5 a 9:16.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
@@ -48,7 +49,7 @@ function simulate() {
   const order = people.map((_, i) => [r(), i] as const).sort((a, b) => a[0] - b[0]).map(([, i]) => i);
   const rank = new Array<number>(N);
   order.forEach((i, k) => { rank[i] = k; });
-  // vzorový zákazník: 4 nákupy, malú značku D trafí raz, a to naposledy
+  // vzorový zákazník: 4 nákupy, malú značku D vyberie raz, a to naposledy
   const hero = people.find((p) => p.length === 4 && p[3] === 3 && p.filter((x) => x === 3).length === 1 && p.includes(0)) ?? [0, 1, 0, 3];
   // Vysvetlenie vernosti: zákazníci so 4 nákupmi, ktorých PRVÝ nákup bol A (D); ďalšie tri zatočenia sú od neho nezávislé.
   // (Podmienka „kúpil A aspoň raz“ by nesedela: zatočenia pred prvým A by z definície neboli A.)
@@ -145,7 +146,7 @@ const Wheel = ({ cx, cy, r, rot, dim = [1, 1, 1, 1], labels = true }: WheelProps
 type Tone = "yellow" | "teal" | "red";
 const TILES: [number, number, Tone, string][] = [
   [0, T.rules, "yellow", "Prečo malé značky prehrávajú dvakrát?"],
-  [T.rules, T.one, "teal", "Nákupy ako ruleta"],
+  [T.rules, T.one, "teal", "Repertoár ako ruleta"],
   [T.one, T.crowd, "red", "Jeden zákazník"],
   [T.crowd, T.penA, "yellow", "1 000 zákazníkov"],
   [T.penA, T.freq, "teal", "Prvá strata: menej kupujúcich"],
@@ -178,16 +179,16 @@ const Tiles = () => {
 const hero = SIM.hero, heroD = hero.filter((b) => b === 3).length;
 const LINES: [number, number, string][] = [
   [0, T.rules, "Zákon double jeopardy vysvetlený na rulete."],
-  [T.rules, T.one, "Každý nákup je jedno zatočenie. Šírka výseku zodpovedá podielu značky na trhu."],
-  [T.one, T.crowd, `Za rok nakúpi ${TIMES[hero.length]}. Malú značku D pritom trafí iba ${TIMES[heroD]}.`],
-  [T.crowd, T.penA, "To isté zopakujeme s tisíckou zákazníkov. Všetci točia rovnakým kolesom."],
+  [T.rules, T.one, "Zákazník strieda štyri značky zo svojho repertoáru. Šírka výseku ukazuje, ako často siahne po ktorej."],
+  [T.one, T.crowd, `Za rok nakúpi ${TIMES[hero.length]}. Malú značku D pritom vyberie iba ${TIMES[heroD]}.`],
+  [T.crowd, T.penA, "To isté zopakujeme s tisíckou zákazníkov. Všetci striedajú rovnaké štyri značky."],
   [T.penA, T.penD, `Veľkú značku A si aspoň raz kúpilo ${num(SIM.buyers[0])} z nich.`],
   [T.penD, T.freq, `Malú značku D iba ${num(SIM.buyers[3])}. Užší výsek znamená oveľa menej kupujúcich.`],
   [T.freq, T.mech, "Kto si D kúpil, kupuje ju aj zriedkavejšie. Rozdiel je však menší ako pri počte kupujúcich."],
-  [T.mech, T.mech2, "Každý ďalší nákup je nové zatočenie toho istého kolesa."],
-  [T.mech2, T.mech3, `Kto začal značkou A, trafí ju znova pri ${SHARES[0] * 100} % zatočení. Kto začal značkou D, iba pri ${SHARES[3] * 100} %.`],
+  [T.mech, T.mech2, "Pri každom ďalšom nákupe zákazník znova vyberá z celého repertoáru."],
+  [T.mech2, T.mech3, `Kto začal značkou A, vyberie ju znova pri ${SHARES[0] * 100} % ďalších nákupov. Kto začal značkou D, iba pri ${SHARES[3] * 100} %.`],
   [T.mech3, T.why, "Jeden nákup má každý kupujúci istý. Šírka výseku rozhoduje iba o opakovaných nákupoch, preto je druhá strata menšia."],
-  [T.why, T.end, "Šírka výseku je trhový podiel značky. Nikto tu D nemá menej rád, má iba menší podiel."],
+  [T.why, T.end, "Šírka výseku je trhový podiel značky. D nemá menej verných zákazníkov, má len menší podiel v repertoári všetkých."],
 ];
 const Block = () => {
   const f = useCurrentFrame();
@@ -288,7 +289,7 @@ const Crowd = () => {
           return c ? <rect key={i} x={x} y={y} width={size} height={size} fill={c} /> : <rect key={i} x={x + 1} y={y + 1} width={size - 2} height={size - 2} className="dj-empty" />;
         })}
       </svg>
-      <Stat b={null} value={num(spins)} label="zatočení kolesa" style={{ left: 148, top: statY, opacity: 1 - prog(f, T.penA, 10, Easing.linear) }} />
+      <Stat b={null} value={num(spins)} label="nákupov" style={{ left: 148, top: statY, opacity: 1 - prog(f, T.penA, 10, Easing.linear) }} />
       <Stat b={0} value={num(SIM.buyers[0])} label="si kúpilo A" style={{ left: 0, top: statY, opacity: prog(f, T.penA + 6, 14) * (1 - 0.6 * prog(f, T.penD, 14)) }} />
       <Stat b={3} value={num(SIM.buyers[3])} label="si kúpilo D" style={{ left: 488, top: statY, opacity: prog(f, T.penD + 6, 14) }} />
     </div>
@@ -369,7 +370,7 @@ const Mechanism = () => {
       </svg>
       {[0, 3].map((b, side) => (
         <div key={b} className="dj-calc" style={{ left: side ? 496 : 0, top: below + 40, opacity: after }}>
-          <div className="dj-calc__hits">šanca na {NAMES[b]} pri ďalšom nákupe: {SHARES[b] * 100} %</div>
+          <div className="dj-calc__hits">ďalší nákup je {NAMES[b]} v {SHARES[b] * 100} % prípadov</div>
           <div className="dj-calc__formula"><span className="dj-calc__one" style={{ background: `rgb(250 226 123 / ${bandOp})` }}>1</span> + 3 × {SHARES[b] * 100}&nbsp;% ≈ {dec(1 + 3 * SHARES[b])}</div>
           <div className="dj-calc__note">nákupu značky {NAMES[b]} na&nbsp;človeka</div>
         </div>
