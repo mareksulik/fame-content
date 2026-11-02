@@ -2,7 +2,7 @@
 // šírka výseku je to, ako často siahne po ktorej (trhový podiel). Nie je to náhoda, ale zvyk, ktorý sa navonok správa ako pravdepodobnosť.
 // Simulácia 1 000 zákazníkov so seedom (zjednodušený NBD model: počet nákupov za rok = 1 + Poisson s gama rozdelenou mierou),
 // všetci majú rovnaký repertoár. Čísla v texte aj grafoch sa počítajú zo simulácie, nie sú vpísané ručne.
-// Každá scéna: naklonená dlaždica s pomenovaním, uprostred graf, dole béžový blok s vetou. 54 s, 4:5 a 9:16.
+// Každá scéna: naklonená dlaždica s pomenovaním, uprostred graf, dole béžový blok s vetou. 60 s, 4:5 a 9:16.
 import { useEffect, useState } from "react";
 import { AbsoluteFill, Easing, Img, continueRender, delayRender, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import "../../system/tokens.css";
@@ -16,10 +16,12 @@ const win = (f: number, a: number, b: number, d = 12) => interpolate(f, [a, a + 
 const slap = (f: number, start: number, fps: number) => spring({ frame: f - start, fps, config: { damping: 11, stiffness: 180, mass: 0.7 } });
 
 // ---- Časová os (snímky pri 30 fps) ----
-export const T = { rules: 96, one: 216, crowd: 432, penA: 582, penD: 672, freq: 792, mech: 942, mech2: 1077, mech3: 1227, why: 1392, end: 1512, total: 1626 };
+export const T = { rules: 96, one: 216, crowd: 432, penA: 582, penD: 672, freq: 792, mech: 942, mech2: 1077, mech3: 1227, why: 1392, grow: 1512, grow2: 1590, end: 1674, total: 1788 };
 
 // ---- Simulácia ----
 const SHARES = [0.4, 0.3, 0.2, 0.1];
+// Rast: výsek D sa zdvojnásobí, ostatné sa pomerne zúžia
+const GROW_SHARES = SHARES.map((s, b) => (b === 3 ? 0.2 : (s * 0.8) / 0.9));
 const NAMES = ["A", "B", "C", "D"];
 // ink, teal, yellow, red z tokens.css; JS ich potrebuje ako hex na miešanie farieb
 const COLORS = ["#242021", "#00A69C", "#FAE27B", "#EE3433"];
@@ -34,14 +36,15 @@ const rng = (seed: number) => () => {
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 const poisson = (r: () => number, l: number) => { const L = Math.exp(-l); let k = 0, p = 1; do { k++; p *= r(); } while (p > L); return k - 1; };
-const pick = (u: number) => { let b = 0; while (b < 3 && u > SHARES[b]) { u -= SHARES[b]; b++; } return b; };
+const pick = (u: number, shares: number[]) => { let b = 0; while (b < 3 && u > shares[b]) { u -= shares[b]; b++; } return b; };
 
-function simulate() {
+// Rovnaký seed pre oba podiely: tí istí ľudia s rovnakým počtom nákupov, mení sa len šírka výseku
+function simulate(shares = SHARES) {
   const r = rng(SEED);
   // gama s tvarom 1 = exponenciálne rozdelenie: zákazníci sa líšia tým, ako často kategóriu kupujú
   const people = Array.from({ length: N }, () => {
     const n = 1 + poisson(r, -Math.log(1 - r()) * (MEAN - 1));
-    return Array.from({ length: n }, () => pick(r()));
+    return Array.from({ length: n }, () => pick(r(), shares));
   });
   const buyers = [0, 1, 2, 3].map((b) => people.filter((p) => p.includes(b)).length);
   const freq = [0, 1, 2, 3].map((b) => people.reduce((s, p) => s + p.filter((x) => x === b).length, 0) / buyers[b]);
@@ -67,6 +70,7 @@ function simulate() {
   return { people, buyers, freq, rank, hero, samples: [sample(0, SHARES[0]), sample(3, SHARES[3])] };
 }
 const SIM = simulate();
+const GROWN = simulate(GROW_SHARES);
 
 const num = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 const dec = (n: number) => n.toFixed(1).replace(".", ",");
@@ -79,7 +83,8 @@ const mix = (a: string, b: string, t: number) => {
 
 // ---- Rotácia kolesa ----
 // Pri otočení θ je pod ukazovateľom (hore) bod kolesa s uhlom φ = −θ; výsek b leží medzi START[b] a START[b + 1].
-const START = SHARES.reduce<number[]>((a, s) => [...a, a[a.length - 1] + s * 360], [0]);
+const starts = (shares: number[]) => shares.reduce<number[]>((a, s) => [...a, a[a.length - 1] + s * 360], [0]);
+const START = starts(SHARES);
 const REST = -(START[0] + START[1]) / 2; // v pokoji je pod ukazovateľom stred výseku A
 const spinAt = (i: number) => T.one + 24 + i * 38;
 const SPIN = 30;
@@ -93,7 +98,6 @@ const TARGETS = (() => {
   });
 })();
 const LAST = TARGETS[TARGETS.length - 1];
-const WHY_ROT = -(START[3] + START[4]) / 2; // v závere je hore výsek D
 
 function rotAt(f: number) {
   if (f < spinAt(0)) return interpolate(f, [0, T.one - 12], [REST - 1080, REST], { ...clamp, easing: out });
@@ -113,13 +117,13 @@ const STAGE_H = 690;
 
 // ---- Koleso: jediný okrúhly tvar, lebo je to predmet, nie rozhranie ----
 const polar = (cx: number, cy: number, r: number, a: number) => [cx + r * Math.sin((a * Math.PI) / 180), cy - r * Math.cos((a * Math.PI) / 180)];
-type WheelProps = { cx: number; cy: number; r: number; rot: number; dim?: number[]; labels?: boolean };
-const Wheel = ({ cx, cy, r, rot, dim = [1, 1, 1, 1], labels = true }: WheelProps) => {
-  const k = r / 290;
+type WheelProps = { cx: number; cy: number; r: number; rot: number; dim?: number[]; labels?: boolean; shares?: number[] };
+const Wheel = ({ cx, cy, r, rot, dim = [1, 1, 1, 1], labels = true, shares = SHARES }: WheelProps) => {
+  const k = r / 290, START = starts(shares);
   return (
     <g>
       <g transform={`rotate(${rot} ${cx} ${cy})`}>
-        {SHARES.map((s, b) => {
+        {shares.map((s, b) => {
           const [x0, y0] = polar(cx, cy, r, START[b]), [x1, y1] = polar(cx, cy, r, START[b + 1]);
           const [lx, ly] = polar(cx, cy, r * 0.66, (START[b] + START[b + 1]) / 2);
           return (
@@ -128,7 +132,7 @@ const Wheel = ({ cx, cy, r, rot, dim = [1, 1, 1, 1], labels = true }: WheelProps
               {labels && (
                 <g fill={ON[b]} textAnchor="middle">
                   <text x={lx} y={ly + 6 * k} className="dj-slice__name" style={{ fontSize: 64 * k }}>{NAMES[b]}</text>
-                  <text x={lx} y={ly + 44 * k} className="dj-slice__share" style={{ fontSize: 26 * k }}>{s * 100}{" "}%</text>
+                  <text x={lx} y={ly + 44 * k} className="dj-slice__share" style={{ fontSize: 26 * k }}>{Math.round(s * 100)}{" "}%</text>
                 </g>
               )}
             </g>
@@ -152,7 +156,8 @@ const TILES: [number, number, Tone, string][] = [
   [T.penA, T.freq, "teal", "Prvá strata: menej kupujúcich"],
   [T.freq, T.mech, "red", "Druhá strata: menej nákupov"],
   [T.mech, T.why, "yellow", "Prečo kupujú zriedkavejšie?"],
-  [T.why, T.end, "teal", "Výsek je trhový podiel"],
+  [T.why, T.grow, "teal", "Výsek je trhový podiel"],
+  [T.grow, T.end, "red", "Ako sa výsek rozširuje?"],
 ];
 const Tiles = () => {
   const f = useCurrentFrame();
@@ -177,6 +182,7 @@ const Tiles = () => {
 
 // ---- Béžový blok dole: veta scény ----
 const hero = SIM.hero, heroD = hero.filter((b) => b === 3).length;
+const GAIN = Math.round((GROWN.buyers[3] / SIM.buyers[3] - 1) * 100);
 const LINES: [number, number, string][] = [
   [0, T.rules, "Zákon double jeopardy vysvetlený na rulete."],
   [T.rules, T.one, "Zákazník strieda štyri značky zo svojho repertoáru. Šírka výseku ukazuje, ako často siahne po ktorej."],
@@ -188,7 +194,9 @@ const LINES: [number, number, string][] = [
   [T.mech, T.mech2, "Pri každom ďalšom nákupe zákazník znova vyberá z celého repertoáru."],
   [T.mech2, T.mech3, `Kto začal značkou A, vyberie ju znova pri ${SHARES[0] * 100} % ďalších nákupov. Kto začal značkou D, iba pri ${SHARES[3] * 100} %.`],
   [T.mech3, T.why, "Jeden nákup má každý kupujúci istý. Šírka výseku rozhoduje iba o opakovaných nákupoch, preto je druhá strata menšia."],
-  [T.why, T.end, "Šírka výseku je trhový podiel značky. D nemá menej verných zákazníkov, má len menší podiel v repertoári všetkých."],
+  [T.why, T.grow, "Šírka výseku je trhový podiel značky. D nemá menej verných zákazníkov, má len menší podiel v repertoári všetkých."],
+  [T.grow, T.grow2, "Výsek sa rozšíri, keď si na značku spomenie a\u00a0nájde ju v\u00a0obchode viac ľudí."],
+  [T.grow2, T.end, `Keď sa podiel D zdvojnásobí, kupujúcich pribudne o\u00a0${GAIN}\u00a0%. Nákupy na kupujúceho stúpnu len z\u00a0${dec(SIM.freq[3])} na ${dec(GROWN.freq[3])}.`],
 ];
 const Block = () => {
   const f = useCurrentFrame();
@@ -206,6 +214,7 @@ const Block = () => {
 // ---- Koleso: úvod, pravidlá, jeden zákazník; v dave sa zmenší a točí ďalej, v závere sa vráti s výsekom D ----
 const WHEEL = { cx: 468, cy: 330, r: 290 };
 const SMALL = { cx: 60, cy: 642, r: 44 }; // pod mriežkou (končí na 570), zarovno s počítadlom
+const GROW_AT = { cx: 250, r: 230 }; // v scéne rastu vľavo, vpravo počítadlá
 const WheelStage = () => {
   const f = useCurrentFrame();
   const shrink = prog(f, T.crowd, 18, inOut);
@@ -214,14 +223,18 @@ const WheelStage = () => {
   const intro = prog(f, 0, 18);
   const leave = prog(f, T.end - 14, 14, Easing.in(Easing.cubic));
   const op = f < T.why ? intro * (1 - prog(f, T.penA, 12, Easing.linear)) : back * (1 - leave);
-  const dimOthers = prog(f, T.why + 24, 20, inOut);
+  const grow = prog(f, T.grow, 20, inOut);
+  const widen = prog(f, T.grow + 30, 50, inOut);
+  const shares = SHARES.map((s, b) => s + (GROW_SHARES[b] - s) * widen);
+  const dimOthers = prog(f, T.why + 24, 20, inOut) * (1 - grow);
   const s = f < T.why ? 0.6 + 0.4 * intro : (0.85 + 0.15 * back) * (1 - 0.3 * leave);
   return (
     <svg className="dj-svg" viewBox={`0 0 936 ${STAGE_H}`} style={{ opacity: op }}>
       <g transform={`translate(${WHEEL.cx * (1 - s)} ${WHEEL.cy * (1 - s)}) scale(${s})`}>
         {f < T.why
           ? <Wheel cx={lerp(WHEEL.cx, SMALL.cx)} cy={lerp(WHEEL.cy, SMALL.cy)} r={lerp(WHEEL.r, SMALL.r)} rot={rotAt(f)} labels={shrink < 0.5} />
-          : <Wheel {...WHEEL} rot={WHY_ROT} dim={[1, 1, 1, 0].map((d) => (d ? 1 - 0.78 * dimOthers : 1))} />}
+          : <Wheel cx={WHEEL.cx + (GROW_AT.cx - WHEEL.cx) * grow} cy={WHEEL.cy} r={WHEEL.r + (GROW_AT.r - WHEEL.r) * grow} shares={shares}
+              rot={-(360 - shares[3] * 180)} dim={[1, 1, 1, 0].map((d) => (d ? 1 - 0.78 * dimOthers : 1))} />}
       </g>
       <Chips />
     </svg>
@@ -379,6 +392,29 @@ const Mechanism = () => {
   );
 };
 
+// ---- Rast: počítadlá sa menia spolu so šírkou výseku D ----
+const Grow = () => {
+  const f = useCurrentFrame();
+  const op = win(f, T.grow + 14, T.end + 6, 14);
+  if (op <= 0) return null;
+  const w = prog(f, T.grow + 30, 50, inOut);
+  const rows: [string, string, string][] = [
+    ["Kupujúci D z\u00a01\u00a0000", num(Math.round(SIM.buyers[3] + (GROWN.buyers[3] - SIM.buyers[3]) * w)), num(SIM.buyers[3])],
+    ["Nákupy D na kupujúceho", dec(SIM.freq[3] + (GROWN.freq[3] - SIM.freq[3]) * w), dec(SIM.freq[3])],
+  ];
+  return (
+    <div className="dj-layer" style={{ opacity: op }}>
+      {rows.map(([label, value, was], i) => (
+        <div key={label} className="dj-grow" style={{ top: 130 + i * 230 }}>
+          <div className="dj-grow__label">{label}</div>
+          <div className="dj-grow__value"><span className="dj-stat__mark" style={{ background: COLORS[3] }} />{value}</div>
+          <div className="dj-grow__label" style={{ opacity: prog(f, T.grow + 30, 14) }}>pri podiele {SHARES[3] * 100}&nbsp;%: {was}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // ---- Záver: dva pásy vybiehajú za okraje, béžový blok s vetou a červenou URL ----
 const End = () => {
   const f = useCurrentFrame();
@@ -401,7 +437,7 @@ const End = () => {
         })}
       </div>
       <div className="dj-end__block" style={{ transform: `translateY(${(1 - block) * 100}%)` }}>
-        <p className="dj-line dj-end__line">Väčší trhový podiel získate, keď si na značku spomenie a kúpi ju viac ľudí.</p>
+        <p className="dj-line dj-end__line">Malá značka preto rastie, keď osloví všetkých, ktorí kategóriu kupujú, nielen svojich zákazníkov.</p>
         <span className="f-url f-url--primary dj-end__url" style={{ opacity: interpolate(f - T.end - 56, [0, 4], [0, 1], clamp), transform: `scale(${interpolate(url, [0, 1], [1.3, 1])})` }}>fameworks.sk/manifest</span>
       </div>
     </AbsoluteFill>
@@ -421,6 +457,7 @@ export const DoubleJeopardy = ({ format = "portrait" }: { format?: DJFormat }) =
             <Crowd />
             <Table />
             <Mechanism />
+            <Grow />
           </div>
           <Tiles />
         </>
