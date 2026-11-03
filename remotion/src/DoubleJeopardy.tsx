@@ -193,7 +193,7 @@ const LINES: [number, number, string][] = [
   [T.freq, T.mech, "Kto si D kúpil, kupuje ju aj zriedkavejšie. Rozdiel je však menší ako pri počte kupujúcich."],
   [T.mech, T.mech2, "Pri každom ďalšom nákupe zákazník znova vyberá z celého repertoáru."],
   [T.mech2, T.mech3, `Kto začal značkou A, vyberie ju znova pri ${SHARES[0] * 100} % ďalších nákupov. Kto začal značkou D, iba pri ${SHARES[3] * 100} %.`],
-  [T.mech3, T.why, "Jeden nákup má každý kupujúci istý. Šírka výseku rozhoduje iba o opakovaných nákupoch, preto je druhá strata menšia."],
+  [T.mech3, T.why, "Kto značku kúpil, má jeden nákup istý. Šírka výseku rozhoduje už len o ďalších, preto je druhá strata menšia."],
   [T.why, T.grow, "Šírka výseku je trhový podiel značky. D nemá menej verných zákazníkov, má len menší podiel v repertoári všetkých."],
   [T.grow, T.grow2, "Výsek sa rozšíri, keď si na značku spomenie a\u00a0nájde ju v\u00a0obchode viac ľudí."],
   [T.grow2, T.end, `Keď sa podiel D zdvojnásobí, kupujúcich pribudne o\u00a0${GAIN}\u00a0%. Nákupy na kupujúceho stúpnu len z\u00a0${dec(SIM.freq[3])} na ${dec(GROWN.freq[3])}.`],
